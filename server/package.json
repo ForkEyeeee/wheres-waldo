@@ -1,0 +1,55 @@
+{
+  "name": "wheres-waldo",
+  "version": "0.0.0",
+  "engines": {
+    "node": "v18.17.1"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node dist/bin/www",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "dev": "concurrently \"npm run build:watch\" \"nodemon dist/bin/www\"",
+    "serverstart": "SET DEBUG=blog-api & npm run dev",
+    "render-postbuild-server": "npm install && tsc"
+  },
+  "dependencies": {
+    "async": "^3.2.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "~4.16.1",
+    "express-async-handler": "^1.2.0",
+    "express-generator": "^4.16.1",
+    "express-jwt": "^8.4.1",
+    "express-rate-limit": "^6.9.0",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "fix-has-install-script": "^1.0.2",
+    "helmet": "^7.0.0",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "luxon": "^3.4.2",
+    "mongodb": "^5.8.1",
+    "mongoose": "^7.5.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^3.0.0",
+    "@tsconfig/node18": "^18.2.1",
+    "@types/express": "^4.17.17",
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.2",
+    "typescript": "^5.2.2"
+  }
+}
