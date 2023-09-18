@@ -10,7 +10,9 @@ import {
   PopoverCloseButton,
   ListItem,
   UnorderedList,
+  Image,
 } from "@chakra-ui/react";
+import whereswaldo from "../../public/assets/images/wheres-waldo.jpg";
 
 const PopOverMenu = () => {
   const [coords, setCoords] = useState<{
@@ -34,49 +36,48 @@ const PopOverMenu = () => {
   };
 
   return (
-    <Box>
-      <Box
+    <>
+      <Image
         className="app"
         role="pop-menu"
         onClick={handleClick}
         cursor={"crosshair"}
+        src={whereswaldo}
+      />
+      <Popover
+        isOpen={
+          typeof coords.pageX === "undefined" &&
+          typeof coords.pageY === "undefined"
+            ? false
+            : true
+        }
       >
-        <Popover
-          isOpen={
-            typeof coords.pageX === "undefined" &&
-            typeof coords.pageY === "undefined"
-              ? false
-              : true
-          }
-        >
-          <PopoverTrigger>
-            <Box
-              display={isPopUp ? "inherit" : "none"}
-              className={
-                typeof coords.pageX === "undefined" &&
-                typeof coords.pageY === "undefined"
-                  ? ""
-                  : "dot"
-              }
-              style={{ left: coords.pageX, top: coords.pageY }}
-            />
-          </PopoverTrigger>
-          <PopoverContent display={isPopUp ? "inherit" : "none"}>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>Choose your character</PopoverHeader>
-            <PopoverBody>
-              <UnorderedList>
-                <ListItem>Character 1</ListItem>
-                <ListItem>Character 2</ListItem>
-                <ListItem>Character 3</ListItem>
-                <ListItem>Character 4</ListItem>
-              </UnorderedList>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-      </Box>
-    </Box>
+        <PopoverTrigger>
+          <Box
+            display={isPopUp ? "inherit" : "none"}
+            className={
+              typeof coords.pageX === "undefined" &&
+              typeof coords.pageY === "undefined"
+                ? ""
+                : "dot"
+            }
+            style={{ left: coords.pageX, top: coords.pageY }}
+          />
+        </PopoverTrigger>
+        <PopoverContent display={isPopUp ? "inherit" : "none"}>
+          <PopoverArrow />
+          <PopoverHeader>Choose your character</PopoverHeader>
+          <PopoverBody>
+            <UnorderedList>
+              <ListItem>Character 1</ListItem>
+              <ListItem>Character 2</ListItem>
+              <ListItem>Character 3</ListItem>
+              <ListItem>Character 4</ListItem>
+            </UnorderedList>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 };
 
