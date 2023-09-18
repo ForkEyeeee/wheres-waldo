@@ -7,12 +7,10 @@ import {
   PopoverHeader,
   PopoverBody,
   PopoverArrow,
-  PopoverCloseButton,
   ListItem,
   UnorderedList,
-  Image,
 } from "@chakra-ui/react";
-import whereswaldo from "../../public/assets/images/wheres-waldo.jpg";
+import WheresWaldoImage from "./WheresWaldoImage";
 
 const PopOverMenu = () => {
   const [coords, setCoords] = useState<{
@@ -37,13 +35,7 @@ const PopOverMenu = () => {
 
   return (
     <>
-      <Image
-        className="app"
-        role="pop-menu"
-        onClick={handleClick}
-        cursor={"crosshair"}
-        src={whereswaldo}
-      />
+      <WheresWaldoImage handleClick={handleClick} />
       <Popover
         isOpen={
           typeof coords.pageX === "undefined" &&
