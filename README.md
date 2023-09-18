@@ -32,15 +32,23 @@ Ensure [Node.js](https://nodejs.org/en/download/) and [npm](http://npmjs.com) ar
 
 4. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains your MongoDB connection URI in the format `dev_db_url="your_connection_string"`
 
-5. In the `.env` file within the `client` directory, add an environment variable in the format `VITE_ENDPOINT=http://localhost:5173/`.
+5. Generate a hashed password using bcrypt.
 
-6. Navigate to the `server` directory and launch the server:
+6. In the `.env` file in the `server` directory, add your hashed password as the signature. The line should look like:
+
+   ```
+   signature="your_hashed_password"
+   ```
+
+7. In the `.env` file within the `client` directory, add an environment variable in the format `VITE_ENDPOINT=http://localhost:5173/`.
+
+8. Navigate to the `server` directory and launch the server:
 
    ```bash
    npm run serverstart
    ```
 
-7. In a separate terminal, navigate to the `client` directory and launch the client development server:
+9. In a separate terminal, navigate to the `client` directory and launch the client development server:
 
    ```bash
    cd path/to/wheres-waldo/client
@@ -68,6 +76,9 @@ To prepare the client for deployment in a production environment:
 ## Technology Stack
 
 - [React](https://reactjs.org/) - JavaScript library for UI building.
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Jest](https://jestjs.io/)
+- [Chakra UI](https://chakra-ui.com/)
 - [Express](https://expressjs.com/) - Web app framework for Node.js.
 - [MongoDB](https://www.mongodb.com/) - NoSQL document-oriented database.
 - [Mongoose](https://mongoosejs.com/) - ODM library for MongoDB and Node.js.
