@@ -14,3 +14,38 @@ body {
   background: red;
   transform: translate(-50%, -50%);
 }
+
+.el {
+  position: relative;
+}
+
+.el::after,
+.el::before {
+  content: "";
+  background: black;
+  border-radius: 2px;
+  position: absolute;
+}
+
+.el::after {
+  left: 30px;
+  width: 10px;
+  height: 20px;
+  box-shadow: 0 50px black;
+}
+
+.el::before {
+  top: 30px;
+  width: 20px;
+  height: 10px;
+  box-shadow: 50px 0 black;
+}
+
+.dot {
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}

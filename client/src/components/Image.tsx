@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Popover,
@@ -5,38 +6,14 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
-  Button,
+  ListItem,
+  UnorderedList,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
 const Image = () => {
-  // const [isPopUp, setIsPopUp] = useState(false);
-
-  // const handlePopUp = (): void => {
-  //   setIsPopUp(!isPopUp);
-  // };
-
-  // return (
-  //   <>
-  //     <Popover placement="top-start" arrowSize={0}>
-  //       <PopoverTrigger>
-  //         <Box onClick={handlePopUp}>TEST</Box>
-  //       </PopoverTrigger>
-  //       <PopoverContent>
-  //         <PopoverArrow />
-  //         <PopoverCloseButton />
-  //         <PopoverHeader>Confirmation!</PopoverHeader>
-  //         <PopoverBody>
-  //           Are you sure you want to have that milkshake?
-  //         </PopoverBody>
-  //       </PopoverContent>
-  //     </Popover>
-  //   </>
-  // );
-  const [popUp, setPopup] = useState<{
+  const [coords, setCoords] = useState<{
     pageX: string | number | undefined;
     pageY: string | number | undefined;
   }>({
@@ -44,23 +21,56 @@ const Image = () => {
     pageY: undefined,
   });
 
+  const [isPopUp, setIsPopUp] = useState(false);
+
   type Coordinates = {
     pageX: number;
     pageY: number;
   };
 
   const handleClick = ({ pageX, pageY }: Coordinates): void => {
-    setPopup({ pageX, pageY });
+    setCoords({ pageX, pageY });
+    setIsPopUp(!isPopUp);
   };
 
   return (
-    <Box className="app" onClick={handleClick}>
-      <Box
-        className={
-          popUp.pageX === undefined && popUp.pageY === undefined ? "" : "box"
-        }
-        style={{ left: popUp.pageX, top: popUp.pageY }}
-      ></Box>
+    <Box>
+      <Box className="app" onClick={handleClick} cursor={"crosshair"}>
+        <Popover
+          isOpen={
+            typeof coords.pageX === "undefined" &&
+            typeof coords.pageY === "undefined"
+              ? false
+              : true
+          }
+        >
+          <PopoverTrigger>
+            <Box
+              display={isPopUp ? "inherit" : "none"}
+              className={
+                typeof coords.pageX === "undefined" &&
+                typeof coords.pageY === "undefined"
+                  ? ""
+                  : "dot"
+              }
+              style={{ left: coords.pageX, top: coords.pageY }}
+            />
+          </PopoverTrigger>
+          <PopoverContent display={isPopUp ? "inherit" : "none"}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>Choose your character</PopoverHeader>
+            <PopoverBody>
+              <UnorderedList>
+                <ListItem>Character 1</ListItem>
+                <ListItem>Character 2</ListItem>
+                <ListItem>Character 3</ListItem>
+                <ListItem>Character 4</ListItem>
+              </UnorderedList>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Box>
     </Box>
   );
 };
