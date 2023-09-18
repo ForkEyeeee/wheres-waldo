@@ -75,17 +75,17 @@ To prepare the client for deployment in a production environment:
 
 ## Technology Stack
 
-- [React](https://reactjs.org/) - JavaScript library for UI building.
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- [Jest](https://jestjs.io/)
-- [Chakra UI](https://chakra-ui.com/)
-- [Express](https://expressjs.com/) - Web app framework for Node.js.
-- [MongoDB](https://www.mongodb.com/) - NoSQL document-oriented database.
-- [Mongoose](https://mongoosejs.com/) - ODM library for MongoDB and Node.js.
-- [Supertest](https://www.npmjs.com/package/supertest) - HTTP assertions library.
-- [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) - In-memory database server for MongoDB.
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Tool for generating JSON web tokens.
-- [bcrypt](https://www.npmjs.com/package/bcrypt) - Library for password hashing.
-- [dotenv](https://www.npmjs.com/package/dotenv) - Module to manage environment variables.
+- [React](https://reactjs.org/) - UI library for building web applications.
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) - Tool for testing React components.
+- [Jest](https://jestjs.io/) - JavaScript testing framework.
+- [Chakra UI](https://chakra-ui.com/) - React component library.
+- [Express](https://expressjs.com/) - Web framework for Node.js.
+- [MongoDB](https://www.mongodb.com/) - NoSQL database.
+- [Mongoose](https://mongoosejs.com/) - Data modeling for MongoDB.
+- [Supertest](https://www.npmjs.com/package/supertest) - HTTP testing library.
+- [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) - In-memory MongoDB server.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON web token utility.
+- [bcrypt](https://www.npmjs.com/package/bcrypt) - Password hashing tool.
+- [dotenv](https://www.npmjs.com/package/dotenv) - Environment variable manager.
 
 ---
