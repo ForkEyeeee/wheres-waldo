@@ -12,7 +12,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 
-const Image = () => {
+const PopOverMenu = () => {
   const [coords, setCoords] = useState<{
     pageX: string | number | undefined;
     pageY: string | number | undefined;
@@ -35,7 +35,12 @@ const Image = () => {
 
   return (
     <Box>
-      <Box className="app" onClick={handleClick} cursor={"crosshair"}>
+      <Box
+        className="app"
+        role="pop-menu"
+        onClick={handleClick}
+        cursor={"crosshair"}
+      >
         <Popover
           isOpen={
             typeof coords.pageX === "undefined" &&
@@ -75,4 +80,4 @@ const Image = () => {
   );
 };
 
-export default Image;
+export default PopOverMenu;

@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Image from "./components/Image";
+import PopOverMenu from "./components/PopOverMenu";
 import "./styles.css";
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Image />} />
+        <Route path="/" element={<PopOverMenu />} />
       </Routes>
     </>
   );
