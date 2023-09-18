@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import Image from "./components/Image";
+import "./styles.css";
 
 const App = () => {
-  console.log(import.meta.env.VITE_SOME_KEY); // 123
-
   return (
     <>
-      <Routes></Routes>
+      <Routes>
+        <Route path="/" element={<Image />} />
+      </Routes>
     </>
   );
 };

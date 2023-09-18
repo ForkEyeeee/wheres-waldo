@@ -12,6 +12,17 @@ const jwt = require("jsonwebtoken");
 const unprotectedRoutes = require("./routes/unprotectedRoutes");
 const protectedRoutes = require("./routes/protectedRoutes");
 
+declare global {
+  namespace Express {
+    interface Request {
+      userData?: any;
+    }
+  }
+}
+interface HttpError extends Error {
+  status?: number;
+}
+
 const app = express();
 
 // Compress all routes
@@ -73,7 +84,12 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 });
 
 // error handler
-app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
+app.use(function (
+  err: HttpError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
