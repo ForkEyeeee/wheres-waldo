@@ -60,7 +60,7 @@ const PopOverMenu = () => {
       console.error(error);
     }
   };
-
+  console.log(coords);
   return (
     <>
       <form onSubmit={handleSubmit}>

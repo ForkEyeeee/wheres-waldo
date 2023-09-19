@@ -52,8 +52,8 @@ body {
 
 .circle {
   position: absolute;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
 }
 
@@ -62,7 +62,7 @@ body {
   content: "";
   height: calc(100% + 10px);
   width: calc(100% + 10px);
-  border: 8px dashed orange;
+  border: 4px dashed rgb(255, 0, 0);
   border-radius: inherit;
 }
 
