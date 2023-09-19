@@ -10,18 +10,6 @@ const helmet = require("helmet");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const unprotectedRoutes = require("./routes/unprotectedRoutes");
-const protectedRoutes = require("./routes/protectedRoutes");
-
-declare global {
-  namespace Express {
-    interface Request {
-      userData?: any;
-    }
-  }
-}
-interface HttpError extends Error {
-  status?: number;
-}
 
 const app = express();
 
@@ -33,14 +21,8 @@ app.use(
     },
   })
 );
-const RateLimit = require("express-rate-limit");
-const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 2000,
-});
 
 app.use(cors());
-app.use(limiter);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -58,7 +40,7 @@ function verifyToken(req: Request, res: Response, next: NextFunction) {
   const token = authHeader.split(" ")[1]; // Expecting 'Bearer TOKEN'
   try {
     const decodedToken = jwt.verify(token, process.env.signature);
-    req.userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
+    (req as any).userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
     next(); // Proceed to next middleware or route handler
   } catch (error) {
     return res.status(401).json({ success: false, message: "Invalid token." });
@@ -66,7 +48,6 @@ function verifyToken(req: Request, res: Response, next: NextFunction) {
 }
 
 app.use("/api", unprotectedRoutes);
-app.use("/api", verifyToken, protectedRoutes);
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -84,17 +65,12 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 });
 
 // error handler
-app.use(function (
-  err: HttpError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
   // render the error page
-  res.status(err.status || 500);
+  res.status((err as any).status || 500);
   console.log(err);
   res.json({ message: res.locals.message, success: false });
 });

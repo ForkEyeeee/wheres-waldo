@@ -2,12 +2,12 @@
   "extends": "@tsconfig/node18/tsconfig.json",
 
   "compilerOptions": {
-    "outDir": "./dist",
+    "esModuleInterop": true,
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noImplicitAny": false,
     "noEmitOnError": false
   }
 }
