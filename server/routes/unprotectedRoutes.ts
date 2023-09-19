@@ -4,11 +4,8 @@ var router = express.Router();
 const characterController = require("../controllers/characterController");
 
 /* GET home page. */
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  console.log("redirecting...");
-  res.redirect("wheres-waldo");
-});
+router.get("/", (req: Request, res: Response, next: NextFunction) => {});
 
-router.get("/wheres-waldo", characterController.wheresWaldoGet);
+router.post("/", characterController.validateLocationPost);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const Character = require("../models/character");
 const asyncHandler = require("express-async-handler");
-exports.wheresWaldoGet = asyncHandler(async (req, res, next) => {
+exports.validateLocationPost = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
     res.json({ Message: "waldo" });
 });

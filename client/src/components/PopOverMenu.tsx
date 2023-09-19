@@ -38,21 +38,19 @@ const PopOverMenu = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(import.meta.env.VITE_ENDPOINT);
+
     try {
-      const response = await fetch(
-        location,
-        //fetch api GET route for wheres Waldo location
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            pageX: coords.pageX, //pass the coordinates
-            pageY: coords.pageY,
-          }),
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pageX: coords.pageX, //pass the coordinates
+          pageY: coords.pageY,
+        }),
+      });
       if (!response.ok) {
         throw new Error(await response.text());
       } else {
@@ -67,36 +65,39 @@ const PopOverMenu = () => {
     <>
       <form onSubmit={handleSubmit}>
         <WheresWaldoImage handleClick={handleClick} />
-        <Popover
-          isOpen={
-            typeof coords.pageX === "undefined" &&
-            typeof coords.pageY === "undefined"
-              ? false
-              : true
-          }
-        >
-          <PopoverTrigger>
-            <Box
-              display={isPopUp ? "inherit" : "none"}
-              className={
-                typeof coords.pageX === "undefined" &&
-                typeof coords.pageY === "undefined"
-                  ? ""
-                  : "dot"
-              }
-              style={{ left: coords.pageX, top: coords.pageY }}
-            />
-          </PopoverTrigger>
-          <PopoverContent display={isPopUp ? "inherit" : "none"}>
-            <PopoverArrow />
-            <PopoverHeader>Choose your character</PopoverHeader>
-            <PopoverBody>
-              <UnorderedList>
-                <Button type="submit">Character 1</Button>
-              </UnorderedList>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        <Box>
+          <Popover
+            isOpen={
+              typeof coords.pageX === "undefined" &&
+              typeof coords.pageY === "undefined"
+                ? false
+                : true
+            }
+            placement="bottom"
+          >
+            <PopoverTrigger>
+              <Box
+                display={isPopUp ? "inherit" : "none"}
+                className={
+                  typeof coords.pageX === "undefined" &&
+                  typeof coords.pageY === "undefined"
+                    ? ""
+                    : "circle"
+                }
+                style={{ left: coords.pageX - 40, top: coords.pageY - 30 }}
+              />
+            </PopoverTrigger>
+            <PopoverContent display={isPopUp ? "inherit" : "none"}>
+              <PopoverArrow ml={3} />
+              <PopoverHeader>Choose your character</PopoverHeader>
+              <PopoverBody>
+                <UnorderedList>
+                  <Button type="submit">Character 1</Button>
+                </UnorderedList>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </Box>
       </form>
     </>
   );
