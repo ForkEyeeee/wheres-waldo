@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/react";
-import whereswaldo from "../../public/assets/images/wheres-waldo.jpg";
+import whereswaldo from "../../public/assets/images/simple.jpg";
 import { MouseEvent } from "react";
 
 interface Props {
@@ -14,6 +14,8 @@ const WheresWaldoImage = ({ handleClick }: Props) => {
       onClick={handleClick}
       cursor={"crosshair"}
       src={whereswaldo}
+      minW={"100%"}
+      backgroundSize={"cover"}
     />
   );
 };

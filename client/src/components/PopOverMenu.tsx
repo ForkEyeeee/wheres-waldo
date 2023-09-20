@@ -29,6 +29,7 @@ const PopOverMenu = () => {
   };
 
   const handleClick = ({ pageX, pageY }: Coordinates): void => {
+    console.log(event.pageX);
     setCoords({ pageX, pageY });
     setIsPopUp(!isPopUp);
   };
