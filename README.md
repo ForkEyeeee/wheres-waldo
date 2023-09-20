@@ -84,8 +84,6 @@ To prepare the client for deployment in a production environment:
 - [Mongoose](https://mongoosejs.com/) - Data modeling for MongoDB.
 - [Supertest](https://www.npmjs.com/package/supertest) - HTTP testing library.
 - [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) - In-memory MongoDB server.
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON web token utility.
-- [bcrypt](https://www.npmjs.com/package/bcrypt) - Password hashing tool.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Environment variable manager.
 
 ---

@@ -1,5 +1,4 @@
-export {};
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const data = [
   {
@@ -28,4 +27,4 @@ const data = [
   },
 ];
 
-module.exports = data;
+export default data;

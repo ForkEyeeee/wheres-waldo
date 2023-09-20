@@ -1,15 +1,15 @@
 require("dotenv").config();
 import { Request, Response, NextFunction } from "express";
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const compression = require("compression");
-const helmet = require("helmet");
-const cors = require("cors");
-const jwt = require("jsonwebtoken");
-const unprotectedRoutes = require("./routes/unprotectedRoutes");
+import createError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import compression from "compression";
+import helmet from "helmet";
+import cors from "cors";
+import mongoose from "mongoose";
+import unprotectedRoutes from "./routes/unprotectedRoutes";
 
 const app = express();
 
@@ -30,29 +30,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(compression());
 
-function verifyToken(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Token not provided." });
-  }
-  const token = authHeader.split(" ")[1]; // Expecting 'Bearer TOKEN'
-  try {
-    const decodedToken = jwt.verify(token, process.env.signature);
-    (req as any).userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
-    next(); // Proceed to next middleware or route handler
-  } catch (error) {
-    return res.status(401).json({ success: false, message: "Invalid token." });
-  }
-}
+// function verifyToken(req: Request, res: Response, next: NextFunction) {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader) {
+//     return res
+//       .status(401)
+//       .json({ success: false, message: "Token not provided." });
+//   }
+//   const token = authHeader.split(" ")[1]; // Expecting 'Bearer TOKEN'
+//   try {
+//     const decodedToken = jwt.verify(token, process.env.signature);
+//     (req as any).userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
+//     next(); // Proceed to next middleware or route handler
+//   } catch (error) {
+//     return res.status(401).json({ success: false, message: "Invalid token." });
+//   }
+// }
 
 app.use("/api", unprotectedRoutes);
 
 // Set up mongoose connection
-const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGODB_URI || process.env.dev_db_url;
+const mongoDB: any = process.env.MONGODB_URI || process.env.dev_db_url;
 
 main().catch(err => console.log(err));
 async function main() {

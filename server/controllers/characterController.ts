@@ -1,12 +1,12 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 import { Request, Response, NextFunction } from "express";
-const bcrypt = require("bcryptjs");
-const { body, validationResult } = require("express-validator");
-const jwt = require("jsonwebtoken");
-const Character = require("../models/character");
-const asyncHandler = require("express-async-handler");
+import bcrypt from "bcryptjs";
+import { body, validationResult } from "express-validator";
+import Character from "../models/character";
+import asyncHandler from "express-async-handler";
 
-exports.validateLocationPost = asyncHandler(
+export const validateLocationPost = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { pageX, pageY } = req.body;

@@ -1,9 +1,10 @@
-const request = require("supertest");
-const unprotectedRoutes = require("../routes/unprotectedRoutes");
-const expressTest = require("express");
-const mongoTestingServer = require("./mongoConfigTesting");
-const Character = require("../models/character");
-const charactersData = require("./wheres-waldo.characters");
+import request from "supertest";
+import unprotectedRoutes from "../routes/unprotectedRoutes";
+import expressTest from "express";
+import mongoTestingServer from "./mongoConfigTesting";
+import Character from "../models/character";
+import charactersData from "./wheresWaldoCharacterData";
+
 const appTest = expressTest();
 
 mongoTestingServer();

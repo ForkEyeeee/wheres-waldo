@@ -1,7 +1,4 @@
-export {};
-
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import { Schema, model } from "mongoose";
 
 const CharacterSchema = new Schema(
   {
@@ -19,4 +16,6 @@ CharacterSchema.virtual("url").get(function (this: any): string {
   return `${this._id}`;
 });
 
-module.exports = mongoose.model("Character", CharacterSchema);
+const CharacterModel = model("Character", CharacterSchema);
+
+export default CharacterModel;

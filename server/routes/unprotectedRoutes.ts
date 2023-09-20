@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-var express = require("express");
-var router = express.Router();
-const characterController = require("../controllers/characterController");
+import { Router } from "express";
+const MyRouter = Router();
+
+import { validateLocationPost } from "../controllers/characterController";
 
 /* GET home page. */
 
-router.post("/", characterController.validateLocationPost);
+MyRouter.post("/", validateLocationPost);
 
-module.exports = router;
+export default MyRouter;
