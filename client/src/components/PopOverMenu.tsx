@@ -11,18 +11,15 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import WheresWaldoImage from "./WheresWaldoImage";
-import { useLocation } from "react-router-dom";
 
 const PopOverMenu = () => {
   const [coords, setCoords] = useState<{
-    pageX: string | number | undefined;
-    pageY: string | number | undefined;
+    pageX?: null | number;
+    pageY?: null | number;
   }>({
-    pageX: undefined,
-    pageY: undefined,
+    pageX: null,
+    pageY: null,
   });
-
-  console.log(useLocation().pathname);
 
   const [isPopUp, setIsPopUp] = useState(false);
 
@@ -54,6 +51,8 @@ const PopOverMenu = () => {
       if (!response.ok) {
         throw new Error(await response.text());
       } else {
+        const json = await response.json();
+        console.log(json);
         //return json response boolean whether passed coords matches anything found in the database
       }
     } catch (error) {
