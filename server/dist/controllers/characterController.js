@@ -10,7 +10,8 @@ const character_1 = __importDefault(require("../models/character"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, res, next) => {
     try {
-        const { pageX, pageY } = req.body;
+        const { character, pageX, pageY } = req.body;
+        console.log(req.body);
         let characters = await character_1.default.find({});
         const validateLocation = () => {
             for (let i = 0; i <= 2; i += 1) {
@@ -18,15 +19,14 @@ exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, 
                     pageX <= characters[i].locationXMax &&
                     pageY >= characters[i].locationYMin &&
                     pageY <= characters[i].locationYMax) {
-                    return true;
+                    return characters[i].name;
                 }
             }
             return false;
         };
-        res.json({ Message: validateLocation() }); //return the chracter name too
+        res.json({ characterName: validateLocation(), success: true }); //return the chracter name too
     }
     catch (error) {
-        console.log(error);
-        res.json({ Message: error });
+        res.json({ Message: error, success: false });
     }
 });

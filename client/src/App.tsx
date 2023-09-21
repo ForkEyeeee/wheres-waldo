@@ -5,12 +5,23 @@ import NavBar from "./components/NavBar";
 import "./styles.css";
 
 const App = () => {
-  const [character, setCharacter] = useState("");
+  const [currentcharacter, setCurrentCharacter] = useState("");
+  const [allCharacters, setAllCharacters] = useState([]);
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<PopOverMenu setCharacter={setCharacter} />} />
+        <Route
+          path="/"
+          element={
+            <PopOverMenu
+              currentcharacter={currentcharacter}
+              setCurrentCharacter={setCurrentCharacter}
+              allCharacters={allCharacters}
+              setAllCharacters={setAllCharacters}
+            />
+          }
+        />
       </Routes>
     </>
   );

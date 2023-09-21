@@ -9,7 +9,8 @@ import asyncHandler from "express-async-handler";
 export const validateLocationPost = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { pageX, pageY } = req.body;
+      const { character, pageX, pageY } = req.body;
+      console.log(req.body);
       let characters = await Character.find({});
       const validateLocation = () => {
         for (let i = 0; i <= 2; i += 1) {
@@ -19,15 +20,14 @@ export const validateLocationPost = asyncHandler(
             pageY >= characters[i].locationYMin &&
             pageY <= characters[i].locationYMax
           ) {
-            return true;
+            return characters[i].name;
           }
         }
         return false;
       };
-      res.json({ Message: validateLocation() }); //return the chracter name too
+      res.json({ characterName: validateLocation(), success: true }); //return the chracter name too
     } catch (error) {
-      console.log(error);
-      res.json({ Message: error });
+      res.json({ Message: error, success: false });
     }
   }
 );

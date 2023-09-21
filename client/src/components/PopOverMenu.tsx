@@ -16,7 +16,12 @@ import WaldoImage from "./WaldoImage";
 import DeathImage from "./DeathImage";
 import { MouseEvent } from "react";
 
-const PopOverMenu = ({ setCharacter }) => {
+const PopOverMenu = ({
+  currentcharacter,
+  setCurrentCharacter,
+  allCharacters,
+  setAllCharacters,
+}) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
     pageY?: null | number;
@@ -63,6 +68,7 @@ const PopOverMenu = ({ setCharacter }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          character: currentcharacter,
           pageX: imageCoords.pageX, //pass the coordinates
           pageY: imageCoords.pageY,
         }),
@@ -71,6 +77,18 @@ const PopOverMenu = ({ setCharacter }) => {
         throw new Error(await response.text());
       } else {
         const json = await response.json();
+        if (json.characterName === currentcharacter) {
+          console.log(allCharacters.length);
+          // const getCharacters = allCharacters.length <= 1 ? currentcharacter : ...allCharacters, currentcharacter
+          setAllCharacters(
+            allCharacters.length <= 0
+              ? [currentcharacter]
+              : [...allCharacters, currentcharacter]
+          );
+        }
+        if (allCharacters.length >= 2) {
+          console.log("game won");
+        }
         console.log(json);
         //return json response boolean whether passed coords matches anything found in the database
       }
@@ -116,13 +134,13 @@ const PopOverMenu = ({ setCharacter }) => {
             <PopoverBody>
               <VStack>
                 <button type="submit">
-                  <WaldoImage setCharacter={setCharacter} />
+                  <WaldoImage setCurrentCharacter={setCurrentCharacter} />
                 </button>
                 <button type="submit">
-                  <SonicImage setCharacter={setCharacter} />
+                  <SonicImage setCurrentCharacter={setCurrentCharacter} />
                 </button>{" "}
                 <button type="submit">
-                  <DeathImage setCharacter={setCharacter} />
+                  <DeathImage setCurrentCharacter={setCurrentCharacter} />
                 </button>
               </VStack>
             </PopoverBody>
