@@ -1,19 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { vi } from "vitest";
-
-import WheresWaldoImage from "../components/WheresWaldoBackground";
+import WheresWaldoBackground from "../components/WheresWaldoBackground";
 
 describe("WheresWaldoImage", () => {
   it("renders WheresWaldoImage Component and handles click", () => {
+    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
     const handleClick = vi.fn();
     handleClick("hello", 1);
-    render(<WheresWaldoImage handleClick={handleClick} />);
-    const waldoImage = screen.getByRole("pop-menu");
-    expect(waldoImage).toHaveAttribute(
-      "src",
-      "/public/assets/images/simple.jpg"
+    render(
+      <WheresWaldoBackground
+        handleClick={handleClick}
+        allCharacters={allCharacters}
+      />
     );
+    const waldoImage = screen.getByRole("pop-menu");
+    expect(waldoImage).toHaveAttribute("src", "/assets/images/simple.jpg");
     expect(vi.isMockFunction(handleClick)).toBe(true);
     expect(handleClick.mock.calls[0]).toEqual(["hello", 1]);
   });

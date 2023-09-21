@@ -4,7 +4,8 @@ import PopOverMenu from "../components/PopOverMenu";
 
 describe("PopOverMenu", () => {
   it("renders PopOverMenu Component", () => {
-    render(<PopOverMenu />);
+    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
+    render(<PopOverMenu allCharacters={allCharacters} />);
     expect(screen.getByRole("pop-menu")).toBeInTheDocument();
   });
 });

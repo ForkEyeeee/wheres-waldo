@@ -16,6 +16,7 @@ const SonicImage = ({ setCurrentCharacter, allCharacters }: Props) => {
             onClick={() => setCurrentCharacter("Sonic The Hedgehog")}
             cursor={"pointer"}
             src={sonicImage}
+            data-testid="sonic-image"
           />
         </Box>
       )}

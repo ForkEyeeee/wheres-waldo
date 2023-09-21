@@ -16,6 +16,7 @@ const WaldoImage = ({ setCurrentCharacter, allCharacters }) => {
             onClick={() => setCurrentCharacter("Waldo")}
             cursor={"pointer"}
             src={waldoImage}
+            data-testid="waldo-image"
           />
         </Box>
       )}

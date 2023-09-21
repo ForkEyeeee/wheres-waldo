@@ -82,7 +82,7 @@ const PopOverMenu = ({
         throw new Error(await response.text());
       } else {
         const json = await response.json();
-        if (json.characterName === currentcharacter) {
+        if (json.success) {
           console.log(allCharacters.length);
           // const getCharacters = allCharacters.length <= 1 ? currentcharacter : ...allCharacters, currentcharacter
           setAllCharacters(

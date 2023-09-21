@@ -13,21 +13,24 @@ export const validateLocationPost = asyncHandler(
       console.log(req.body);
       let characters = await Character.find({});
       const validateLocation = () => {
-        for (let i = 0; i <= 2; i += 1) {
+        for (let i = 0; i < characters.length; i += 1) {
           if (
             pageX >= characters[i].locationXMin &&
             pageX <= characters[i].locationXMax &&
             pageY >= characters[i].locationYMin &&
-            pageY <= characters[i].locationYMax
+            pageY <= characters[i].locationYMax &&
+            character === characters[i].name
           ) {
-            return characters[i].name;
+            return true;
           }
         }
         return false;
       };
-      res.json({ characterName: validateLocation(), success: true }); //return the chracter name too
+      res.json({
+        success: validateLocation(),
+      });
     } catch (error) {
-      res.json({ Message: error, success: false });
+      res.status(500).json({ Message: error, success: false });
     }
   }
 );

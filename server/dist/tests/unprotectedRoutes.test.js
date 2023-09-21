@@ -16,6 +16,8 @@ appTest.use("/", unprotectedRoutes_1.default);
 describe("Character API tests", () => {
     beforeEach(async () => {
         await character_1.default.insertMany(wheresWaldoCharacterData_1.default);
+        let characters = await character_1.default.find({});
+        console.log(characters);
     });
     afterEach(async () => {
         await character_1.default.deleteMany();
@@ -23,11 +25,12 @@ describe("Character API tests", () => {
     test("unprotectedRoutes", done => {
         (0, supertest_1.default)(appTest)
             .post("/")
-            .send({ pageX: 890, pageY: 430 })
-            .expect("Content-Type", /json/)
+            .send({ character: "Waldo", pageX: 46, pageY: 91 })
             .expect(200)
+            .expect("Content-Type", /json/)
+            .expect({ success: true })
             .expect((res) => {
-            if (res.body.Message === undefined) {
+            if (res.body === undefined) {
                 throw new Error("Expected response body to be true or false");
             }
         })

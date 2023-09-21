@@ -16,6 +16,8 @@ const DeathImage = ({ setCurrentCharacter, allCharacters }: Props) => {
             onClick={() => setCurrentCharacter("Death")}
             cursor={"pointer"}
             src={deathImage}
+            role="death-image"
+            data-testid="death-image"
           />
         </Box>
       )}

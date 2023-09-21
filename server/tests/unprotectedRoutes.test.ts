@@ -3,7 +3,7 @@ import unprotectedRoutes from "../routes/unprotectedRoutes";
 import expressTest from "express";
 import mongoTestingServer from "./mongoConfigTesting";
 import Character from "../models/character";
-import charactersData from "./wheresWaldoCharacterData";
+import data from "./wheresWaldoCharacterData";
 
 const appTest = expressTest();
 
@@ -14,7 +14,9 @@ appTest.use("/", unprotectedRoutes);
 
 describe("Character API tests", () => {
   beforeEach(async () => {
-    await Character.insertMany(charactersData);
+    await Character.insertMany(data);
+    let characters = await Character.find({});
+    console.log(characters);
   });
 
   afterEach(async () => {
@@ -24,11 +26,12 @@ describe("Character API tests", () => {
   test("unprotectedRoutes", done => {
     request(appTest)
       .post("/")
-      .send({ pageX: 890, pageY: 430 })
-      .expect("Content-Type", /json/)
+      .send({ character: "Waldo", pageX: 46, pageY: 91 })
       .expect(200)
+      .expect("Content-Type", /json/)
+      .expect({ success: true })
       .expect((res: any) => {
-        if (res.body.Message === undefined) {
+        if (res.body === undefined) {
           throw new Error("Expected response body to be true or false");
         }
       })
