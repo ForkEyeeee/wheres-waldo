@@ -1,12 +1,12 @@
 import { Image } from "@chakra-ui/react";
-import whereswaldo from "../../public/assets/images/simple.jpg";
+import whereswaldo from "/assets/images/simple.jpg";
 import { MouseEvent } from "react";
 
 interface Props {
   handleClick: (event: MouseEvent) => void;
 }
 
-const WheresWaldoImage = ({ handleClick }: Props) => {
+const WheresWaldoBackground = ({ handleClick }: Props) => {
   return (
     <Image
       className="app"
@@ -20,4 +20,4 @@ const WheresWaldoImage = ({ handleClick }: Props) => {
   );
 };
 
-export default WheresWaldoImage;
+export default WheresWaldoBackground;

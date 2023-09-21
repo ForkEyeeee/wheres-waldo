@@ -23,7 +23,7 @@ exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, 
             }
             return false;
         };
-        res.json({ Message: validateLocation() });
+        res.json({ Message: validateLocation() }); //return the chracter name too
     }
     catch (error) {
         console.log(error);

@@ -24,7 +24,7 @@ export const validateLocationPost = asyncHandler(
         }
         return false;
       };
-      res.json({ Message: validateLocation() });
+      res.json({ Message: validateLocation() }); //return the chracter name too
     } catch (error) {
       console.log(error);
       res.json({ Message: error });

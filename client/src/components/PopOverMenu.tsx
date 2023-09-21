@@ -8,9 +8,12 @@ import {
   PopoverBody,
   PopoverArrow,
   Button,
-  UnorderedList,
+  VStack,
 } from "@chakra-ui/react";
-import WheresWaldoImage from "./WheresWaldoImage";
+import WheresWaldoBackground from "./WheresWaldoBackground";
+import SonicImage from "./sonicImage";
+import WaldoImage from "./WaldoImage";
+import DeathImage from "./DeathImage";
 import { MouseEvent } from "react";
 
 const PopOverMenu = () => {
@@ -79,7 +82,7 @@ const PopOverMenu = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <WheresWaldoImage handleClick={handleClick} />
+        <WheresWaldoBackground handleClick={handleClick} />
         <Box>
           <Popover
             isOpen={
@@ -105,13 +108,18 @@ const PopOverMenu = () => {
                 }}
               />
             </PopoverTrigger>
-            <PopoverContent display={isPopUp ? "inherit" : "none"}>
+            <PopoverContent
+              display={isPopUp ? "inherit" : "none"}
+              maxW={"150px"}
+              borderColor={"gray"}
+            >
               <PopoverArrow ml={3} />
-              <PopoverHeader>Choose your character</PopoverHeader>
               <PopoverBody>
-                <UnorderedList>
-                  <Button type="submit">Character 1</Button>
-                </UnorderedList>
+                <VStack>
+                  <WaldoImage></WaldoImage>
+                  <SonicImage></SonicImage>
+                  <DeathImage></DeathImage>
+                </VStack>
               </PopoverBody>
             </PopoverContent>
           </Popover>
