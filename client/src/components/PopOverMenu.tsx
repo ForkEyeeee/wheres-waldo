@@ -11,7 +11,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import WheresWaldoImage from "./WheresWaldoImage";
-import React, { ChangeEvent } from "react";
+import { MouseEvent } from "react";
 
 const PopOverMenu = () => {
   const [imageCoords, setImageCoords] = useState<{
@@ -32,8 +32,9 @@ const PopOverMenu = () => {
 
   const [isPopUp, setIsPopUp] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLImageElement>): void => {
+  const handleClick = (event: MouseEvent): void => {
     const { clientX, clientY } = event;
+
     const rect = event.currentTarget.getBoundingClientRect();
 
     const xRelativeToElement = clientX - rect.left;
@@ -44,14 +45,14 @@ const PopOverMenu = () => {
 
     setImageCoords({ pageX: xPercentage, pageY: yPercentage });
     setPopUpCoords({
-      pageX: Number(event.clientX - 40),
-      pageY: Number(event.clientY - 40),
+      pageX: xRelativeToElement - 35,
+      pageY: yRelativeToElement + 15,
     });
     setIsPopUp(!isPopUp);
   };
 
-  const handleSubmit = async (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "POST",
@@ -74,10 +75,11 @@ const PopOverMenu = () => {
       console.error(error);
     }
   };
+
   return (
     <>
-      <form onSubmit={() => handleSubmit}>
-        <WheresWaldoImage handleClick={() => handleClick} />
+      <form onSubmit={handleSubmit}>
+        <WheresWaldoImage handleClick={handleClick} />
         <Box>
           <Popover
             isOpen={
