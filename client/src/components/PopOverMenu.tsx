@@ -9,6 +9,11 @@ import {
   PopoverArrow,
   Button,
   VStack,
+  useToast,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import SonicImage from "./sonicImage";
@@ -39,7 +44,7 @@ const PopOverMenu = ({
   });
 
   const [isPopUp, setIsPopUp] = useState(false);
-
+  const toast = useToast();
   const handleClick = (event: MouseEvent): void => {
     const { clientX, clientY } = event;
 
@@ -85,9 +90,24 @@ const PopOverMenu = ({
               ? [currentcharacter]
               : [...allCharacters, currentcharacter]
           );
+
+          toast({
+            title: `You found ${currentcharacter}!`,
+            description: "Find the rest!",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: `No ones here!`,
+            description: "Keep trying",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
         }
         if (allCharacters.length >= 2) {
-          console.log("game won");
         }
         console.log(json);
         //return json response boolean whether passed coords matches anything found in the database
@@ -134,13 +154,22 @@ const PopOverMenu = ({
             <PopoverBody>
               <VStack>
                 <button type="submit">
-                  <WaldoImage setCurrentCharacter={setCurrentCharacter} />
+                  <WaldoImage
+                    setCurrentCharacter={setCurrentCharacter}
+                    allCharacters={allCharacters}
+                  />
                 </button>
                 <button type="submit">
-                  <SonicImage setCurrentCharacter={setCurrentCharacter} />
+                  <SonicImage
+                    setCurrentCharacter={setCurrentCharacter}
+                    allCharacters={allCharacters}
+                  />
                 </button>{" "}
                 <button type="submit">
-                  <DeathImage setCurrentCharacter={setCurrentCharacter} />
+                  <DeathImage
+                    setCurrentCharacter={setCurrentCharacter}
+                    allCharacters={allCharacters}
+                  />
                 </button>
               </VStack>
             </PopoverBody>
