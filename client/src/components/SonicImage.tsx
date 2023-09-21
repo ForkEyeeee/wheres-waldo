@@ -7,10 +7,14 @@ interface Props {
   handleClick: (event: MouseEvent) => void;
 }
 
-const SonicImage = ({ handleClick }: Props) => {
+const SonicImage = ({ setCharacter }: Props) => {
   return (
     <Box _hover={{ bg: "green" }}>
-      <Image onClick={handleClick} cursor={"pointer"} src={sonicImage} />
+      <Image
+        onClick={() => setCharacter("Sonic The Hedgehog")}
+        cursor={"pointer"}
+        src={sonicImage}
+      />
     </Box>
   );
 };

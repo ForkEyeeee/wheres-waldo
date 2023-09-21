@@ -1,4 +1,4 @@
-import { Box, HStack, Flex } from "@chakra-ui/react";
+import { Box, HStack, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 // import parseJwt from "./utils/parseJWT";
@@ -21,7 +21,12 @@ const NavBar = () => {
           fontSize={16}
           textTransform={"capitalize"}
         >
-          <HStack justifyContent="space-around"></HStack>
+          <HStack justifyContent="space-between" alignItems={"center"}>
+            <Heading>Where's Waldo?!</Heading>
+            <Text fontSize={20} fontStyle={"italic"}>
+              Find Waldo and his friends!
+            </Text>
+          </HStack>
         </Box>
       </>
       <Flex justifyContent={"center"}>

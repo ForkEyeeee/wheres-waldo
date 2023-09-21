@@ -16,7 +16,7 @@ import WaldoImage from "./WaldoImage";
 import DeathImage from "./DeathImage";
 import { MouseEvent } from "react";
 
-const PopOverMenu = () => {
+const PopOverMenu = ({ setCharacter }) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
     pageY?: null | number;
@@ -48,8 +48,8 @@ const PopOverMenu = () => {
 
     setImageCoords({ pageX: xPercentage, pageY: yPercentage });
     setPopUpCoords({
-      pageX: xRelativeToElement - 35,
-      pageY: yRelativeToElement + 15,
+      pageX: xRelativeToElement - 40,
+      pageY: yRelativeToElement + 55,
     });
     setIsPopUp(!isPopUp);
   };
@@ -83,47 +83,51 @@ const PopOverMenu = () => {
     <>
       <form onSubmit={handleSubmit}>
         <WheresWaldoBackground handleClick={handleClick} />
-        <Box>
-          <Popover
-            isOpen={
-              typeof imageCoords.pageX === "undefined" &&
-              typeof imageCoords.pageY === "undefined"
-                ? false
-                : true
-            }
-            placement="bottom"
-          >
-            <PopoverTrigger>
-              <Box
-                display={isPopUp ? "inherit" : "none"}
-                className={
-                  typeof imageCoords.pageX === "undefined" &&
-                  typeof imageCoords.pageY === "undefined"
-                    ? ""
-                    : "circle"
-                }
-                style={{
-                  left: popupCoords.pageX,
-                  top: popupCoords.pageY,
-                }}
-              />
-            </PopoverTrigger>
-            <PopoverContent
+        <Popover
+          isOpen={
+            typeof imageCoords.pageX === "undefined" &&
+            typeof imageCoords.pageY === "undefined"
+              ? false
+              : true
+          }
+          placement="bottom"
+        >
+          <PopoverTrigger>
+            <Box
               display={isPopUp ? "inherit" : "none"}
-              maxW={"150px"}
-              borderColor={"gray"}
-            >
-              <PopoverArrow ml={3} />
-              <PopoverBody>
-                <VStack>
-                  <WaldoImage></WaldoImage>
-                  <SonicImage></SonicImage>
-                  <DeathImage></DeathImage>
-                </VStack>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-        </Box>
+              className={
+                typeof imageCoords.pageX === "undefined" &&
+                typeof imageCoords.pageY === "undefined"
+                  ? ""
+                  : "circle"
+              }
+              style={{
+                left: popupCoords.pageX,
+                top: popupCoords.pageY,
+              }}
+            />
+          </PopoverTrigger>
+          <PopoverContent
+            display={isPopUp ? "inherit" : "none"}
+            maxW={"150px"}
+            borderColor={"gray"}
+          >
+            <PopoverArrow ml={3} />
+            <PopoverBody>
+              <VStack>
+                <button type="submit">
+                  <WaldoImage setCharacter={setCharacter} />
+                </button>
+                <button type="submit">
+                  <SonicImage setCharacter={setCharacter} />
+                </button>{" "}
+                <button type="submit">
+                  <DeathImage setCharacter={setCharacter} />
+                </button>
+              </VStack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </form>
     </>
   );
