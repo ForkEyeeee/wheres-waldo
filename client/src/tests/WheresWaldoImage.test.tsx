@@ -5,15 +5,9 @@ import WheresWaldoBackground from "../components/WheresWaldoBackground";
 
 describe("WheresWaldoImage", () => {
   it("renders WheresWaldoImage Component and handles click", () => {
-    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
     const handleClick = vi.fn();
     handleClick("hello", 1);
-    render(
-      <WheresWaldoBackground
-        handleClick={handleClick}
-        allCharacters={allCharacters}
-      />
-    );
+    render(<WheresWaldoBackground handleClick={handleClick} />);
     const waldoImage = screen.getByRole("pop-menu");
     expect(waldoImage).toHaveAttribute("src", "/assets/images/simple.jpg");
     expect(vi.isMockFunction(handleClick)).toBe(true);

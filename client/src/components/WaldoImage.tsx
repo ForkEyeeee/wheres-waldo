@@ -4,10 +4,10 @@ import { MouseEvent } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {
-  handleClick: (event: MouseEvent) => void;
+  setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
+  allCharacters: Array<string>;
 }
-
-const WaldoImage = ({ setCurrentCharacter, allCharacters }) => {
+const WaldoImage = ({ setCurrentCharacter, allCharacters }: Props) => {
   return (
     <>
       {!allCharacters.includes("Waldo") && (

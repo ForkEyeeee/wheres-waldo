@@ -4,29 +4,30 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
   PopoverArrow,
-  Button,
   VStack,
   useToast,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
-import SonicImage from "./sonicImage";
+import SonicImage from "./SonicImage";
 import WaldoImage from "./WaldoImage";
 import DeathImage from "./DeathImage";
 import { MouseEvent } from "react";
+
+interface Props {
+  currentcharacter: string;
+  setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
+  allCharacters: Array<string>;
+  setAllCharacters: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
 const PopOverMenu = ({
   currentcharacter,
   setCurrentCharacter,
   allCharacters,
   setAllCharacters,
-}) => {
+}: Props) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
     pageY?: null | number;
@@ -84,7 +85,6 @@ const PopOverMenu = ({
         const json = await response.json();
         if (json.success) {
           console.log(allCharacters.length);
-          // const getCharacters = allCharacters.length <= 1 ? currentcharacter : ...allCharacters, currentcharacter
           setAllCharacters(
             allCharacters.length <= 0
               ? [currentcharacter]

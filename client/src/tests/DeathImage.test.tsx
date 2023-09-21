@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+
+import { describe, it, vi, expect } from "vitest";
 import DeathImage from "../components/DeathImage";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
@@ -14,7 +15,7 @@ describe("DeathImage", () => {
           <DeathImage
             setCurrentCharacter={handleClick}
             allCharacters={allCharacters}
-          />{" "}
+          />
         </App>
       </BrowserRouter>
     );

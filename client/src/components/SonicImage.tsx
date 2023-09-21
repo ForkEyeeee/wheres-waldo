@@ -1,12 +1,11 @@
 import { Image } from "@chakra-ui/react";
 import sonicImage from "/assets/images/sonic.webp";
-import { MouseEvent } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {
-  handleClick: (event: MouseEvent) => void;
+  setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
+  allCharacters: Array<string>;
 }
-
 const SonicImage = ({ setCurrentCharacter, allCharacters }: Props) => {
   return (
     <>

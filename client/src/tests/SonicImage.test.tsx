@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
-import SonicImage from "../components/sonicImage";
+import { describe, it, expect, vi } from "vitest";
+import SonicImage from "../components/SonicImage";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
 

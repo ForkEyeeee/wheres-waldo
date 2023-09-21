@@ -4,9 +4,10 @@ import PopOverMenu from "./components/PopOverMenu";
 import NavBar from "./components/NavBar";
 import "./styles.css";
 
-const App = () => {
-  const [currentcharacter, setCurrentCharacter] = useState("");
-  const [allCharacters, setAllCharacters] = useState([]);
+const App = (props: any) => {
+  const [currentcharacter, setCurrentCharacter] = useState<string>("");
+  const [allCharacters, setAllCharacters] = useState<string[]>([]);
+
   return (
     <>
       <NavBar />

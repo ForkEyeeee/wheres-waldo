@@ -1,10 +1,10 @@
 import { Image } from "@chakra-ui/react";
 import deathImage from "/assets/images/death.jpg";
-import { MouseEvent } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {
-  handleClick: (event: MouseEvent) => void;
+  setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
+  allCharacters: Array<string>;
 }
 
 const DeathImage = ({ setCurrentCharacter, allCharacters }: Props) => {
