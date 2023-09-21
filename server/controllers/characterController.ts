@@ -10,11 +10,7 @@ export const validateLocationPost = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { pageX, pageY } = req.body;
-      console.log(pageX);
-      console.log(pageY);
       let characters = await Character.find({});
-      console.log(characters);
-
       const validateLocation = () => {
         for (let i = 0; i <= 2; i += 1) {
           if (
