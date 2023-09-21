@@ -22,22 +22,39 @@ const PopOverMenu = () => {
   });
 
   const [isPopUp, setIsPopUp] = useState(false);
+  const [popupCoords, setPopUpCoords] = useState({});
 
   type Coordinates = {
     pageX: number;
     pageY: number;
   };
 
-  const handleClick = ({ pageX, pageY }: Coordinates): void => {
-    console.log(event.pageX);
-    setCoords({ pageX, pageY });
+  const handleClick = (event: React.MouseEvent<HTMLImageElement>): void => {
+    const { clientX, clientY } = event;
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const xRelativeToElement = clientX - rect.left;
+    const yRelativeToElement = clientY - rect.top;
+
+    const xPercentage = (xRelativeToElement / rect.width) * 100;
+    const yPercentage = (yRelativeToElement / rect.height) * 100;
+
+    setCoords({ pageX: xPercentage, pageY: yPercentage });
+    setPopUpCoords({
+      pageX: Number(event.clientX - 40),
+      pageY: Number(event.clientY - 40),
+    });
     setIsPopUp(!isPopUp);
   };
 
+  // const handleClick = ({ pageX, pageY }: Coordinates): void => {
+  //   console.log(event.clientY);
+  //   console.log(event.clientX);
+  //   setCoords({ pageX, pageY });
+  //   setIsPopUp(!isPopUp);
+  // };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(import.meta.env.VITE_ENDPOINT);
-
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "POST",
@@ -60,7 +77,6 @@ const PopOverMenu = () => {
       console.error(error);
     }
   };
-  console.log(coords);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -84,7 +100,10 @@ const PopOverMenu = () => {
                     ? ""
                     : "circle"
                 }
-                style={{ left: coords.pageX - 40, top: coords.pageY - 30 }}
+                style={{
+                  left: popupCoords.pageX,
+                  top: popupCoords.pageY,
+                }}
               />
             </PopoverTrigger>
             <PopoverContent display={isPopUp ? "inherit" : "none"}>

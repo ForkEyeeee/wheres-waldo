@@ -27,6 +27,7 @@
     "@react-icons/all-files": "^4.1.0",
     "@types/node": "^20.6.2",
     "concurrently": "^8.2.1",
+    "cursor-position": "^1.0.1",
     "dotenv": "^16.3.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^10.16.4",
