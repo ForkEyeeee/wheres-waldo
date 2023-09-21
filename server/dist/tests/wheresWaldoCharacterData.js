@@ -16,18 +16,18 @@ const data = [
     {
         _id: new mongoose_1.default.Types.ObjectId("6509cf37a2242a07b711b1a2"),
         name: "Sonic The Hedgehog",
-        locationXMin: 6,
-        locationXMax: 79,
-        locationYMax: 75,
-        locationYMin: 2,
+        locationXMax: 6,
+        locationYMax: 79,
+        locationYMin: 75,
+        locationXMin: 2,
     },
     {
         _id: new mongoose_1.default.Types.ObjectId("6509cfc7a2242a07b711b1a3"),
         name: "Death",
-        locationXMin: 67,
-        locationXMax: 10,
-        locationYMin: 17,
-        locationYMax: 61,
+        locationXMax: 67,
+        locationYMin: 10,
+        locationYMax: 17,
+        locationXMin: 61,
     },
 ];
 exports.default = data;

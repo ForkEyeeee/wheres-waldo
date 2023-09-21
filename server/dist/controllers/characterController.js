@@ -11,7 +11,6 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, res, next) => {
     try {
         const { character, pageX, pageY } = req.body;
-        console.log(req.body);
         let characters = await character_1.default.find({});
         const validateLocation = () => {
             for (let i = 0; i < characters.length; i += 1) {

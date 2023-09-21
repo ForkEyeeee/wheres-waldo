@@ -12,12 +12,11 @@ const wheresWaldoCharacterData_1 = __importDefault(require("./wheresWaldoCharact
 const appTest = (0, express_1.default)();
 (0, mongoConfigTesting_1.default)();
 appTest.use(express_1.default.urlencoded({ extended: false }));
+appTest.use(express_1.default.json());
 appTest.use("/", unprotectedRoutes_1.default);
 describe("Character API tests", () => {
-    beforeEach(async () => {
+    beforeAll(async () => {
         await character_1.default.insertMany(wheresWaldoCharacterData_1.default);
-        let characters = await character_1.default.find({});
-        console.log(characters);
     });
     afterEach(async () => {
         await character_1.default.deleteMany();

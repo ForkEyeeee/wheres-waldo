@@ -10,13 +10,12 @@ const appTest = expressTest();
 mongoTestingServer();
 
 appTest.use(expressTest.urlencoded({ extended: false }));
+appTest.use(expressTest.json());
 appTest.use("/", unprotectedRoutes);
 
 describe("Character API tests", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await Character.insertMany(data);
-    let characters = await Character.find({});
-    console.log(characters);
   });
 
   afterEach(async () => {
