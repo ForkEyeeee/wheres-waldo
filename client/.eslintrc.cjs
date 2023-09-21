@@ -1,4 +1,4 @@
-module.exports = {
+const eslintrc = {
   env: { browser: true, es2020: true },
   extends: [
     "eslint:recommended",
@@ -12,3 +12,5 @@ module.exports = {
     "react-refresh/only-export-components": "warn",
   },
 };
+//converted to es6modules
+export default eslintrc;

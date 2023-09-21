@@ -4,14 +4,11 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 // import parseJwt from "./utils/parseJWT";
 // import validateToken from "./utils/validateToken";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { AiFillHome } from "react-icons/ai";
 import { Divider } from "@chakra-ui/react";
 import { useState } from "react";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState("");
 
   return (
     <Box>
@@ -24,48 +21,7 @@ const NavBar = () => {
           fontSize={16}
           textTransform={"capitalize"}
         >
-          <HStack justifyContent="space-around">
-            <ChakraLink as={ReactRouterLink} to={`/`} fontWeight={"bold"}>
-              <HStack>
-                <AiFillHome />
-              </HStack>
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to={`/Aboutus`}
-              textDecor={
-                currentTab === `${import.meta.env.VITE_ENDPOINT}/Aboutus` &&
-                "underline"
-              }
-            >
-              About Us
-            </ChakraLink>
-            (
-            <>
-              <ChakraLink
-                as={ReactRouterLink}
-                to={`/users/new`}
-                textDecor={
-                  currentTab === `${import.meta.env.VITE_ENDPOINT}/users/new` &&
-                  "underline"
-                }
-              >
-                Sign Up
-              </ChakraLink>
-              <ChakraLink
-                as={ReactRouterLink}
-                to={`/session/new`}
-                textDecor={
-                  currentTab ===
-                    `${import.meta.env.VITE_ENDPOINT}/session/new` &&
-                  "underline"
-                }
-              >
-                Login
-              </ChakraLink>
-            </>
-            )
-          </HStack>
+          <HStack justifyContent="space-around"></HStack>
         </Box>
       </>
       <Flex justifyContent={"center"}>

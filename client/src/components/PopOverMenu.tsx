@@ -11,9 +11,10 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import WheresWaldoImage from "./WheresWaldoImage";
+import React, { ChangeEvent } from "react";
 
 const PopOverMenu = () => {
-  const [coords, setCoords] = useState<{
+  const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
     pageY?: null | number;
   }>({
@@ -21,13 +22,15 @@ const PopOverMenu = () => {
     pageY: null,
   });
 
-  const [isPopUp, setIsPopUp] = useState(false);
-  const [popupCoords, setPopUpCoords] = useState({});
+  const [popupCoords, setPopUpCoords] = useState<{
+    pageX?: string | number;
+    pageY?: string | number;
+  }>({
+    pageX: "",
+    pageY: "",
+  });
 
-  type Coordinates = {
-    pageX: number;
-    pageY: number;
-  };
+  const [isPopUp, setIsPopUp] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLImageElement>): void => {
     const { clientX, clientY } = event;
@@ -39,7 +42,7 @@ const PopOverMenu = () => {
     const xPercentage = (xRelativeToElement / rect.width) * 100;
     const yPercentage = (yRelativeToElement / rect.height) * 100;
 
-    setCoords({ pageX: xPercentage, pageY: yPercentage });
+    setImageCoords({ pageX: xPercentage, pageY: yPercentage });
     setPopUpCoords({
       pageX: Number(event.clientX - 40),
       pageY: Number(event.clientY - 40),
@@ -47,13 +50,7 @@ const PopOverMenu = () => {
     setIsPopUp(!isPopUp);
   };
 
-  // const handleClick = ({ pageX, pageY }: Coordinates): void => {
-  //   console.log(event.clientY);
-  //   console.log(event.clientX);
-  //   setCoords({ pageX, pageY });
-  //   setIsPopUp(!isPopUp);
-  // };
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
@@ -62,8 +59,8 @@ const PopOverMenu = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pageX: coords.pageX, //pass the coordinates
-          pageY: coords.pageY,
+          pageX: imageCoords.pageX, //pass the coordinates
+          pageY: imageCoords.pageY,
         }),
       });
       if (!response.ok) {
@@ -79,13 +76,13 @@ const PopOverMenu = () => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <WheresWaldoImage handleClick={handleClick} />
+      <form onSubmit={() => handleSubmit}>
+        <WheresWaldoImage handleClick={() => handleClick} />
         <Box>
           <Popover
             isOpen={
-              typeof coords.pageX === "undefined" &&
-              typeof coords.pageY === "undefined"
+              typeof imageCoords.pageX === "undefined" &&
+              typeof imageCoords.pageY === "undefined"
                 ? false
                 : true
             }
@@ -95,8 +92,8 @@ const PopOverMenu = () => {
               <Box
                 display={isPopUp ? "inherit" : "none"}
                 className={
-                  typeof coords.pageX === "undefined" &&
-                  typeof coords.pageY === "undefined"
+                  typeof imageCoords.pageX === "undefined" &&
+                  typeof imageCoords.pageY === "undefined"
                     ? ""
                     : "circle"
                 }
