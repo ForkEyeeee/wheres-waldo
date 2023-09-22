@@ -16,50 +16,44 @@ Ensure [Node.js](https://nodejs.org/en/download/) and [npm](http://npmjs.com) ar
    git clone https://github.com/ForkEyeee/wheres-waldo
    ```
 
-2. Install dependencies for the client:
+2. Navigate to the `server` directory and install dependencies:
 
    ```bash
-   cd wheres-waldo/client
+   cd wheres-waldo/server
    npm install
    ```
 
-3. Install dependencies for the server:
+3. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains your MongoDB connection URI in the format `dev_db_url="your_connection_string"`
 
-   ```bash
-   cd ../server
-   npm install
-   ```
-
-4. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains your MongoDB connection URI in the format `dev_db_url="your_connection_string"`
-
-5. Generate a hashed password using bcrypt.
-
-6. In the `.env` file in the `server` directory, add your hashed password as the signature. The line should look like:
-
-   ```
-   signature="your_hashed_password"
-   ```
-
-7. In the `.env` file within the `client` directory, add an environment variable in the format `VITE_ENDPOINT=http://localhost:5173/`.
-
-8. Navigate to the `server` directory and launch the server:
+4. Launch the server:
 
    ```bash
    npm run serverstart
    ```
 
-9. In a separate terminal, navigate to the `client` directory and launch the client development server:
+5. In a separate terminal, navigate to the `client` directory:
 
    ```bash
    cd path/to/wheres-waldo/client
+   ```
+
+6. Install dependencies for the client:
+
+   ```bash
+   npm install
+   ```
+
+7. Create a `.env` file within the `client` directory and add an environment variable in the format `VITE_ENDPOINT=http://localhost:5173/`.
+
+8. Launch the client development server:
+
+   ```bash
    npm run dev
    ```
 
 Visit the application in your browser at `http://localhost:5173`.
 
 ## Building for Production
-
-To prepare the client for deployment in a production environment:
 
 1. Navigate to the `client` directory:
 

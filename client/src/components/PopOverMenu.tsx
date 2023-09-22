@@ -130,6 +130,8 @@ const PopOverMenu = ({
             duration: 9000,
             isClosable: true,
           });
+
+          //leave a mark at popup coords
         } else {
           toast({
             title: `No ones here!`,
@@ -302,7 +304,7 @@ const PopOverMenu = ({
             />
           </PopoverTrigger>
           <PopoverContent
-            display={isPopUp ? "inherit" : "none"}
+            display={isPopUp ? "inherit" : "none"} //maybe here say to keep it as inherit if the choice was right
             maxW={"150px"}
             borderColor={"gray"}
           >
