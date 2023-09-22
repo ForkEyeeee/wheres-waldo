@@ -5,5 +5,5 @@ const UserSchema = new mongoose_1.Schema({
     username: { type: String, required: true, maxLength: 200 },
     time: { type: String, required: true },
 }, { collection: "users" });
-const UserModel = (0, mongoose_1.model)("Character", UserSchema);
-exports.default = UserModel;
+const User = (0, mongoose_1.model)("User", UserSchema);
+exports.default = User;

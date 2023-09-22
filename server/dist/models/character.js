@@ -12,5 +12,5 @@ CharacterSchema.virtual("url").get(function () {
     // We don't use an arrow function as we'll need the this object
     return `${this._id}`;
 });
-const CharacterModel = (0, mongoose_1.model)("Character", CharacterSchema);
-exports.default = CharacterModel;
+const Character = (0, mongoose_1.model)("Character", CharacterSchema);
+exports.default = Character;

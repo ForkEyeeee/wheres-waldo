@@ -8,6 +8,6 @@ const UserSchema = new Schema(
   { collection: "users" }
 );
 
-const UserModel = model("Character", UserSchema);
+const User = model("User", UserSchema);
 
-export default UserModel;
+export default User;

@@ -10,12 +10,12 @@ const WheresWaldoBackground = ({ handleClick }: Props) => {
   return (
     <Image
       className="app"
-      role="pop-menu"
       onClick={handleClick}
       cursor={"crosshair"}
       src={whereswaldo}
       minW={"100%"}
       backgroundSize={"cover"}
+      data-testid="waldo-background"
     />
   );
 };

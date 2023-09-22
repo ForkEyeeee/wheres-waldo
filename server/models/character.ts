@@ -16,6 +16,6 @@ CharacterSchema.virtual("url").get(function (this: any): string {
   return `${this._id}`;
 });
 
-const CharacterModel = model("Character", CharacterSchema);
+const Character = model("Character", CharacterSchema);
 
-export default CharacterModel;
+export default Character;

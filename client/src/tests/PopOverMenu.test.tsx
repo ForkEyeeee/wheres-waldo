@@ -13,8 +13,10 @@ describe("PopOverMenu", () => {
         currentcharacter={currentCharacter}
         setCurrentCharacter={handleClick}
         setAllCharacters={handleClick}
+        setGameWin={handleClick}
       />
     );
+    // add tests for modals
     expect(screen.getByRole("pop-menu")).toBeInTheDocument();
   });
 });

@@ -6,7 +6,7 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import { useState } from "react";
-
+import TimeCounter from "./TimeCounter";
 const NavBar = () => {
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const NavBar = () => {
         >
           <HStack justifyContent="space-between" alignItems={"center"}>
             <Heading>Where's Waldo?!</Heading>
+            <TimeCounter />
             <Text fontSize={20} fontStyle={"italic"}>
               Find Waldo and his friends!
             </Text>
