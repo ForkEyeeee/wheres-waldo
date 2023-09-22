@@ -150,11 +150,41 @@ const PopOverMenu = ({
     }
   };
 
-  const handleTime = async (event: any) => {
+  const handleRecordInitialTime = async (event: any) => {
     event.preventDefault();
+    // const formData = new FormData(e.target);
+    // const name = formData.get("name");
+    console.log("recoridng intial time");
+    try {
+      const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // name: name,
+          time: Math.floor(Date.now() / 1000),
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(await response.text());
+      } else {
+        const json = await response.json();
+        if (json.success) {
+        } else {
+        }
+
+        //return json response boolean whether passed coords matches anything found in the database
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddScore = async e => {
+    e.preventDefault();
     const formData = new FormData(e.target);
     const name = formData.get("name");
-
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "PUT",
@@ -163,7 +193,7 @@ const PopOverMenu = ({
         },
         body: JSON.stringify({
           name: name,
-          time: Math.floor(new Date("2012.08.10").getTime() / 1000),
+          time: Math.floor(Date.now() / 1000),
         }),
       });
       if (!response.ok) {
@@ -171,6 +201,7 @@ const PopOverMenu = ({
       } else {
         const json = await response.json();
         if (json.success) {
+          console.log(json);
         } else {
         }
 
@@ -194,6 +225,7 @@ const PopOverMenu = ({
               <ModalFooter justifyContent={"center"}>
                 <Button
                   onClick={() => {
+                    handleRecordInitialTime(event);
                     onClose;
                     setGameStart(true);
                   }}
@@ -213,7 +245,7 @@ const PopOverMenu = ({
             <ModalContent>
               <ModalHeader>You Win!</ModalHeader>
               <ModalBody>
-                <form onSubmit={handleTime}>
+                <form onSubmit={handleAddScore}>
                   <FormControl>
                     <FormLabel>Name</FormLabel>
                     <Input
@@ -222,7 +254,9 @@ const PopOverMenu = ({
                       placeholder="Enter your name"
                     />
                   </FormControl>
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit" onClick={() => onClose}>
+                    Submit
+                  </Button>
                 </form>
               </ModalBody>
               <ModalFooter justifyContent={"center"}>
