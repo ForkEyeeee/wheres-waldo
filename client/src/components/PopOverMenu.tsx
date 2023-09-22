@@ -68,7 +68,6 @@ const PopOverMenu = ({
     pageX: "",
     pageY: "",
   });
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isPopUp, setIsPopUp] = useState(false);
 
@@ -211,6 +210,7 @@ const PopOverMenu = ({
       console.error(error);
     }
   };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -240,11 +240,17 @@ const PopOverMenu = ({
       {gameWin && (
         <Box>
           <WheresWaldoBackground handleClick={handleClick} />
-          <Modal onClose={onClose} isOpen={true} isCentered>
+          <Modal
+            onClose={onClose}
+            isOpen={gameWin && !onClose ? false : true}
+            isCentered
+          >
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>You Win!</ModalHeader>
-              <ModalBody>
+              <ModalBody></ModalBody>
+
+              <ModalFooter justifyContent={"center"}>
                 <form onSubmit={handleAddScore}>
                   <FormControl>
                     <FormLabel>Name</FormLabel>
@@ -254,20 +260,16 @@ const PopOverMenu = ({
                       placeholder="Enter your name"
                     />
                   </FormControl>
-                  <Button type="submit" onClick={() => onClose}>
+                  <Button
+                    type="submit"
+                    onClick={() => {
+                      onClose;
+                      setGameWin(false);
+                    }}
+                  >
                     Submit
                   </Button>
                 </form>
-              </ModalBody>
-              <ModalFooter justifyContent={"center"}>
-                {/* <Button
-                  onClick={() => {
-                    onClose;
-                    setGameStart(true);
-                  }}
-                >
-                  Play
-                </Button> */}
               </ModalFooter>
             </ModalContent>
           </Modal>
