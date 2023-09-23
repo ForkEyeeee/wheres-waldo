@@ -23,7 +23,7 @@ const NavBar = () => {
         >
           <HStack justifyContent="space-between" alignItems={"center"}>
             <Heading>Where's Waldo?!</Heading>
-            <TimeCounter />
+            <TimeCounter max={0} />
             <Text fontSize={20} fontStyle={"italic"}>
               Find Waldo and his friends!
             </Text>

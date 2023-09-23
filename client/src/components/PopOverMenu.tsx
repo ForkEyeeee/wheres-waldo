@@ -60,8 +60,8 @@ const PopOverMenu = ({
     }[]
   >([
     {
-      pageX: null,
-      pageY: null,
+      pageX: undefined,
+      pageY: undefined,
     },
   ]);
 
@@ -248,15 +248,15 @@ const PopOverMenu = ({
           />
         )}
         <WheresWaldoBackground handleClick={handleClick} />
-        {markerCoords[markerCoords.length - 1].pageX !== null &&
-          markerCoords[markerCoords.length - 1].pageY !== null &&
+        {markerCoords[markerCoords.length - 1].pageX !== undefined &&
+          markerCoords[markerCoords.length - 1].pageY !== undefined &&
           markerCoords.map((coord, index) => (
             <Box
               key={index}
               className="circle"
               style={{
-                left: coord.pageX?.toString(),
-                top: coord.pageY?.toString(),
+                left: coord.pageX,
+                top: coord.pageY,
               }}
             />
           ))}

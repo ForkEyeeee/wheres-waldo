@@ -14,8 +14,6 @@ const App = (props: any) => {
     start: false,
     win: false,
   });
-  // const [gameStart, setGameStart] = useState(false);
-  // const [gameWin, setGameWin] = useState(false);
   return (
     <>
       <NavBar />
@@ -28,10 +26,6 @@ const App = (props: any) => {
               setCurrentCharacter={setCurrentCharacter}
               allCharacters={allCharacters}
               setAllCharacters={setAllCharacters}
-              // gameStart={gameStart}
-              // setGameStart={setGameStart}
-              // gameWin={gameWin}
-              // setGameWin={setGameWin}
               gameState={gameState}
               setGameState={setGameState}
             />
