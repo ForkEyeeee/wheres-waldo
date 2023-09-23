@@ -25,6 +25,7 @@ import WheresWaldoBackground from "./WheresWaldoBackground";
 import SonicImage from "./SonicImage";
 import WaldoImage from "./WaldoImage";
 import DeathImage from "./DeathImage";
+import GameStartModal from "./GameStartModal";
 import { MouseEvent } from "react";
 
 interface Props {
@@ -228,46 +229,26 @@ const PopOverMenu = ({
         const json = await response.json();
         if (json.success) {
           setGameState({ start: false, win: false });
-          console.log(json);
-        } else {
         }
-
-        //return json response boolean whether passed coords matches anything found in the database
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const resetGame = () => {};
-
   return (
     <>
       <form onSubmit={handleSubmit}>
         {!gameState.start && (
-          <Box>
-            <WheresWaldoBackground handleClick={handleClick} />
-            <Modal onClose={onClose} isOpen={!gameState.start} isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
-                <ModalFooter justifyContent={"center"}>
-                  <Button
-                    onClick={() => {
-                      handleRecordInitialTime(event);
-                      onClose;
-                      setGameState({
-                        start: true,
-                        win: gameState.win,
-                      });
-                    }}
-                  >
-                    Play
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Box>
+          <>
+            <GameStartModal
+              handleClick={handleClick}
+              handleRecordInitialTime={handleRecordInitialTime}
+              onClose={onClose}
+              setGameState={setGameState}
+              gameState={gameState}
+            />
+          </>
         )}
         {gameState.win && (
           <Box>
@@ -305,8 +286,8 @@ const PopOverMenu = ({
               key={index}
               className="circle"
               style={{
-                left: coord.pageX,
-                top: coord.pageY,
+                left: coord.pageX?.toString(),
+                top: coord.pageY?.toString(),
               }}
             />
           ))}

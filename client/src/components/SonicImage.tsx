@@ -12,7 +12,6 @@ const SonicImage = ({ setCurrentCharacter, allCharacters }: Props) => {
       {!allCharacters.includes("Sonic The Hedgehog") && (
         <Box _hover={{ bg: "green" }}>
           <Image
-            name="Sonic The Hedgehog"
             onClick={() => setCurrentCharacter("Sonic The Hedgehog")}
             cursor={"pointer"}
             src={sonicImage}
