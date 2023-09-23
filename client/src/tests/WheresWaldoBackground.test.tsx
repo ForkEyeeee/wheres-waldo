@@ -8,7 +8,7 @@ describe("WheresWaldoImage", () => {
     const handleClick = vi.fn();
     handleClick("hello", 1);
     render(<WheresWaldoBackground handleClick={handleClick} />);
-    const waldoImage = screen.getByRole("pop-menu");
+    const waldoImage = screen.getByTestId("waldo-background");
     expect(waldoImage).toHaveAttribute("src", "/assets/images/simple.jpg");
     expect(vi.isMockFunction(handleClick)).toBe(true);
     expect(handleClick.mock.calls[0]).toEqual(["hello", 1]);

@@ -30,7 +30,7 @@ const GameEndModal = ({
   elapsedTime,
 }: Props) => {
   return (
-    <Box>
+    <Box data-testid="game-end-modal">
       <WheresWaldoBackground handleClick={handleClick} />
       <Modal onClose={onClose} isOpen={gameState.win} isCentered>
         <ModalOverlay />

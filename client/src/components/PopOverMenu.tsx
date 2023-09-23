@@ -9,17 +9,6 @@ import {
   VStack,
   useToast,
   useDisclosure,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  Input,
-  FormControl,
-  FormLabel,
-  Text,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import SonicImage from "./SonicImage";
@@ -84,7 +73,6 @@ const PopOverMenu = ({
       });
       setAllCharacters([]);
       setCurrentCharacter("");
-      // setImageCoords({ pageX: null, pageY: null });
       setPopUpCoords({
         pageX: "",
         pageY: "",
@@ -302,7 +290,7 @@ const PopOverMenu = ({
           >
             <PopoverArrow ml={3} />
             <PopoverBody>
-              <VStack>
+              <VStack data-testid="popover-buttons">
                 <button type="submit">
                   <WaldoImage
                     setCurrentCharacter={setCurrentCharacter}

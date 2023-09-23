@@ -13,10 +13,12 @@ describe("PopOverMenu", () => {
         currentcharacter={currentCharacter}
         setCurrentCharacter={handleClick}
         setAllCharacters={handleClick}
-        setGameWin={handleClick}
+        gameState={handleClick}
+        setGameState={handleClick}
       />
     );
-    // add tests for modals
-    expect(screen.getByRole("pop-menu")).toBeInTheDocument();
+    handleClick("hello", 1);
+    expect(handleClick).toHaveBeenCalledTimes(4);
+    expect(screen.getByTestId("popover-buttons")).toBeInTheDocument();
   });
 });

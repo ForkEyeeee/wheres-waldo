@@ -26,7 +26,7 @@ const GameStartModal = ({
   gameState,
 }: Props) => {
   return (
-    <Box>
+    <Box data-testid="game-start-modal">
       <WheresWaldoBackground handleClick={handleClick} />
       <Modal onClose={onClose} isOpen={!gameState.start} isCentered>
         <ModalOverlay />
@@ -43,7 +43,7 @@ const GameStartModal = ({
                 });
               }}
             >
-              Play
+              Start
             </Button>
           </ModalFooter>
         </ModalContent>

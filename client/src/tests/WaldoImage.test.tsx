@@ -14,7 +14,7 @@ describe("WaldoImage", () => {
           <WaldoImage
             setCurrentCharacter={handleClick}
             allCharacters={allCharacters}
-          />{" "}
+          />
         </App>
       </BrowserRouter>
     );
