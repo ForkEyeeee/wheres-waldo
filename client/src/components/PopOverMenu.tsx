@@ -26,6 +26,7 @@ import SonicImage from "./SonicImage";
 import WaldoImage from "./WaldoImage";
 import DeathImage from "./DeathImage";
 import GameStartModal from "./GameStartModal";
+import GameEndModal from "./GameEndModal";
 import { MouseEvent } from "react";
 
 interface Props {
@@ -182,7 +183,6 @@ const PopOverMenu = ({
 
   const handleRecordInitialTime = async (event: any) => {
     event.preventDefault();
-    console.log("recoridng intial time");
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "PUT",
@@ -251,34 +251,15 @@ const PopOverMenu = ({
           </>
         )}
         {gameState.win && (
-          <Box>
-            <WheresWaldoBackground handleClick={handleClick} />
-            <Modal onClose={onClose} isOpen={gameState.win} isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>You Win!</ModalHeader>
-                <Text>{elapsedTime > 0 && elapsedTime}</Text>
-                <ModalBody></ModalBody>
-
-                <ModalFooter justifyContent={"center"}>
-                  <form onSubmit={handleAddScore}>
-                    <FormControl>
-                      <FormLabel>Name</FormLabel>
-                      <Input
-                        type="text"
-                        name="name"
-                        placeholder="Enter your name"
-                      />
-                    </FormControl>
-                    <Button type="submit">Submit & Play again</Button>
-                  </form>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Box>
+          <GameEndModal
+            handleClick={handleClick}
+            handleAddScore={handleAddScore}
+            onClose={onClose}
+            gameState={gameState}
+            elapsedTime={elapsedTime}
+          />
         )}
         <WheresWaldoBackground handleClick={handleClick} />
-        {}
         {markerCoords[markerCoords.length - 1].pageX !== null &&
           markerCoords[markerCoords.length - 1].pageY !== null &&
           markerCoords.map((coord, index) => (
