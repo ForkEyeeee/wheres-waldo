@@ -19,6 +19,7 @@ import {
   Input,
   FormControl,
   FormLabel,
+  Text,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import SonicImage from "./SonicImage";
@@ -81,7 +82,7 @@ const PopOverMenu = ({
       });
       setAllCharacters([]);
       setCurrentCharacter("");
-      setImageCoords({ pageX: null, pageY: null });
+      // setImageCoords({ pageX: null, pageY: null });
       setPopUpCoords({
         pageX: "",
         pageY: "",
@@ -93,15 +94,11 @@ const PopOverMenu = ({
           pageY: null,
         },
       ]);
-      setGameState({
-        start: false,
-        win: false,
-      });
     }
   }, [allCharacters]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [elapsedTime, setElapsedtime] = useState(0);
   const toast = useToast();
 
   const handleClick = (event: MouseEvent): void => {
@@ -141,6 +138,8 @@ const PopOverMenu = ({
         throw new Error(await response.text());
       } else {
         const json = await response.json();
+        console.log(json);
+
         if (json.success) {
           markerCoords.length <= 0
             ? setMarkerCoords([
@@ -165,13 +164,14 @@ const PopOverMenu = ({
             isClosable: true,
           });
         } else {
-          toast({
-            title: `No ones here!`,
-            description: "Keep trying",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
+          if (!gameState.start)
+            toast({
+              title: `No ones here!`,
+              description: "Keep trying",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            });
         }
       }
     } catch (error) {
@@ -197,7 +197,7 @@ const PopOverMenu = ({
       } else {
         const json = await response.json();
         if (json.success) {
-        } else {
+          setElapsedtime(json.elapsedTime);
         }
       }
     } catch (error) {
@@ -209,7 +209,6 @@ const PopOverMenu = ({
     e.preventDefault();
     const formData = new FormData(e.target);
     const name = formData.get("name");
-    resetGame();
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "PUT",
@@ -221,11 +220,14 @@ const PopOverMenu = ({
           time: Math.floor(Date.now() / 1000),
         }),
       });
+      console.log(response);
+
       if (!response.ok) {
         throw new Error(await response.text());
       } else {
         const json = await response.json();
         if (json.success) {
+          setGameState({ start: false, win: false });
           console.log(json);
         } else {
         }
@@ -245,7 +247,7 @@ const PopOverMenu = ({
         {!gameState.start && (
           <Box>
             <WheresWaldoBackground handleClick={handleClick} />
-            <Modal onClose={onClose} isOpen={true} isCentered>
+            <Modal onClose={onClose} isOpen={!gameState.start} isCentered>
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
@@ -256,6 +258,7 @@ const PopOverMenu = ({
                       onClose;
                       setGameState({
                         start: true,
+                        win: gameState.win,
                       });
                     }}
                   >
@@ -273,6 +276,7 @@ const PopOverMenu = ({
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>You Win!</ModalHeader>
+                <Text>{elapsedTime > 0 && elapsedTime}</Text>
                 <ModalBody></ModalBody>
 
                 <ModalFooter justifyContent={"center"}>
@@ -285,7 +289,7 @@ const PopOverMenu = ({
                         placeholder="Enter your name"
                       />
                     </FormControl>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">Submit & Play again</Button>
                   </form>
                 </ModalFooter>
               </ModalContent>

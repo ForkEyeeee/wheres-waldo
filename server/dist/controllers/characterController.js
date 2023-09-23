@@ -65,7 +65,7 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
             });
             await newUser.save();
             //save elapsed time to db with their name. adda l eaderbaord display with al scores
-            res.json({ Message: elapsedTime });
+            res.json({ elapsedTime: elapsedTime, success: true });
         }
         catch (error) {
             res.status(500).json({ Message: error, success: false });
