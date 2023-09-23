@@ -69,3 +69,11 @@ body {
 .chakra-popover__popper {
   margin-top: 20px !important;
 }
+
+.marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+}

@@ -10,37 +10,29 @@ import {
   useToast,
   useDisclosure,
   Button,
-  Flex,
-  Input,
-} from "@chakra-ui/react";
-import WheresWaldoBackground from "./WheresWaldoBackground";
-import SonicImage from "./SonicImage";
-import WaldoImage from "./WaldoImage";
-import DeathImage from "./DeathImage";
-import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
-import {
+  Input,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
 } from "@chakra-ui/react";
+import WheresWaldoBackground from "./WheresWaldoBackground";
+import SonicImage from "./SonicImage";
+import WaldoImage from "./WaldoImage";
+import DeathImage from "./DeathImage";
 import { MouseEvent } from "react";
-
-// use state to keep track of the time, display it
 
 interface Props {
   currentcharacter: string;
   setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
   allCharacters: Array<string>;
   setAllCharacters: React.Dispatch<React.SetStateAction<string[]>>;
+  gameState: any;
+  setGameState: any;
 }
 
 const PopOverMenu = ({
@@ -48,10 +40,8 @@ const PopOverMenu = ({
   setCurrentCharacter,
   allCharacters,
   setAllCharacters,
-  gameStart,
-  setGameStart,
-  gameWin,
-  setGameWin,
+  gameState,
+  setGameState,
 }: Props) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
@@ -71,13 +61,49 @@ const PopOverMenu = ({
 
   const [isPopUp, setIsPopUp] = useState(false);
 
+  const [markerCoords, setMarkerCoords] = useState<
+    {
+      pageX: null | number | undefined | string;
+      pageY: null | number | undefined | string;
+    }[]
+  >([
+    {
+      pageX: null,
+      pageY: null,
+    },
+  ]);
+
   useEffect(() => {
     if (allCharacters.length > 2) {
-      setGameWin(true);
+      setGameState({
+        start: true,
+        win: true,
+      });
+      setAllCharacters([]);
+      setCurrentCharacter("");
+      setImageCoords({ pageX: null, pageY: null });
+      setPopUpCoords({
+        pageX: "",
+        pageY: "",
+      });
+      setIsPopUp(false);
+      setMarkerCoords([
+        {
+          pageX: null,
+          pageY: null,
+        },
+      ]);
+      setGameState({
+        start: false,
+        win: false,
+      });
     }
   }, [allCharacters]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const toast = useToast();
+
   const handleClick = (event: MouseEvent): void => {
     const { clientX, clientY } = event;
 
@@ -116,7 +142,15 @@ const PopOverMenu = ({
       } else {
         const json = await response.json();
         if (json.success) {
-          console.log(allCharacters.length);
+          markerCoords.length <= 0
+            ? setMarkerCoords([
+                ...markerCoords,
+                { pageX: popupCoords.pageX, pageY: popupCoords.pageY },
+              ])
+            : setMarkerCoords([
+                { pageX: popupCoords.pageX, pageY: popupCoords.pageY },
+              ]);
+
           setAllCharacters(
             allCharacters.length <= 0
               ? [currentcharacter]
@@ -130,8 +164,6 @@ const PopOverMenu = ({
             duration: 9000,
             isClosable: true,
           });
-
-          //leave a mark at popup coords
         } else {
           toast({
             title: `No ones here!`,
@@ -141,10 +173,6 @@ const PopOverMenu = ({
             isClosable: true,
           });
         }
-        if (allCharacters.length > 2) {
-        }
-        console.log(json);
-        //return json response boolean whether passed coords matches anything found in the database
       }
     } catch (error) {
       console.error(error);
@@ -153,8 +181,6 @@ const PopOverMenu = ({
 
   const handleRecordInitialTime = async (event: any) => {
     event.preventDefault();
-    // const formData = new FormData(e.target);
-    // const name = formData.get("name");
     console.log("recoridng intial time");
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
@@ -163,7 +189,6 @@ const PopOverMenu = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // name: name,
           time: Math.floor(Date.now() / 1000),
         }),
       });
@@ -174,18 +199,17 @@ const PopOverMenu = ({
         if (json.success) {
         } else {
         }
-
-        //return json response boolean whether passed coords matches anything found in the database
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleAddScore = async e => {
+  const handleAddScore = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const name = formData.get("name");
+    resetGame();
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "PUT",
@@ -212,73 +236,76 @@ const PopOverMenu = ({
       console.error(error);
     }
   };
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const resetGame = () => {};
 
   return (
     <>
-      {!gameStart && (
-        <Box>
-          <WheresWaldoBackground handleClick={handleClick} />
-          <Modal onClose={onClose} isOpen={true} isCentered>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
-              <ModalBody>{/* <Lorem count={2} /> */}</ModalBody>
-              <ModalFooter justifyContent={"center"}>
-                <Button
-                  onClick={() => {
-                    handleRecordInitialTime(event);
-                    onClose;
-                    setGameStart(true);
-                  }}
-                >
-                  Play
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </Box>
-      )}
-      {gameWin && (
-        <Box>
-          <WheresWaldoBackground handleClick={handleClick} />
-          <Modal
-            onClose={onClose}
-            isOpen={gameWin && !onClose ? false : true}
-            isCentered
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>You Win!</ModalHeader>
-              <ModalBody></ModalBody>
-
-              <ModalFooter justifyContent={"center"}>
-                <form onSubmit={handleAddScore}>
-                  <FormControl>
-                    <FormLabel>Name</FormLabel>
-                    <Input
-                      type="text"
-                      name="name"
-                      placeholder="Enter your name"
-                    />
-                  </FormControl>
+      <form onSubmit={handleSubmit}>
+        {!gameState.start && (
+          <Box>
+            <WheresWaldoBackground handleClick={handleClick} />
+            <Modal onClose={onClose} isOpen={true} isCentered>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
+                <ModalFooter justifyContent={"center"}>
                   <Button
-                    type="submit"
                     onClick={() => {
+                      handleRecordInitialTime(event);
                       onClose;
-                      setGameWin(false);
+                      setGameState({
+                        start: true,
+                      });
                     }}
                   >
-                    Submit
+                    Play
                   </Button>
-                </form>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </Box>
-      )}
-      <form onSubmit={handleSubmit}>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </Box>
+        )}
+        {gameState.win && (
+          <Box>
+            <WheresWaldoBackground handleClick={handleClick} />
+            <Modal onClose={onClose} isOpen={gameState.win} isCentered>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>You Win!</ModalHeader>
+                <ModalBody></ModalBody>
+
+                <ModalFooter justifyContent={"center"}>
+                  <form onSubmit={handleAddScore}>
+                    <FormControl>
+                      <FormLabel>Name</FormLabel>
+                      <Input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                      />
+                    </FormControl>
+                    <Button type="submit">Submit</Button>
+                  </form>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </Box>
+        )}
         <WheresWaldoBackground handleClick={handleClick} />
+        {}
+        {markerCoords[markerCoords.length - 1].pageX !== null &&
+          markerCoords[markerCoords.length - 1].pageY !== null &&
+          markerCoords.map((coord, index) => (
+            <Box
+              key={index}
+              className="circle"
+              style={{
+                left: coord.pageX,
+                top: coord.pageY,
+              }}
+            />
+          ))}
         <Popover
           isOpen={
             typeof imageCoords.pageX === "undefined" &&
@@ -292,8 +319,7 @@ const PopOverMenu = ({
             <Box
               display={isPopUp ? "inherit" : "none"}
               className={
-                typeof imageCoords.pageX === "undefined" &&
-                typeof imageCoords.pageY === "undefined"
+                imageCoords.pageX === null && imageCoords.pageY === null
                   ? ""
                   : "circle"
               }
@@ -304,7 +330,7 @@ const PopOverMenu = ({
             />
           </PopoverTrigger>
           <PopoverContent
-            display={isPopUp ? "inherit" : "none"} //maybe here say to keep it as inherit if the choice was right
+            display={isPopUp ? "inherit" : "none"}
             maxW={"150px"}
             borderColor={"gray"}
           >

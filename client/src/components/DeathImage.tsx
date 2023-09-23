@@ -13,6 +13,7 @@ const DeathImage = ({ setCurrentCharacter, allCharacters }: Props) => {
       {!allCharacters.includes("Death") && (
         <Box _hover={{ bg: "green" }}>
           <Image
+            name="Death"
             onClick={() => setCurrentCharacter("Death")}
             cursor={"pointer"}
             src={deathImage}

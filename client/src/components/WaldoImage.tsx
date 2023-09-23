@@ -13,6 +13,7 @@ const WaldoImage = ({ setCurrentCharacter, allCharacters }: Props) => {
       {!allCharacters.includes("Waldo") && (
         <Box _hover={{ bg: "green" }}>
           <Image
+            name="Waldo" // Added name attribute
             onClick={() => setCurrentCharacter("Waldo")}
             cursor={"pointer"}
             src={waldoImage}
