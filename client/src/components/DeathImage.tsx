@@ -4,13 +4,13 @@ import { Box } from "@chakra-ui/react";
 
 interface Props {
   setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
-  allCharacters: Array<string>;
+  chosenCharacters: Array<string>;
 }
 
-const DeathImage = ({ setCurrentCharacter, allCharacters }: Props) => {
+const DeathImage = ({ setCurrentCharacter, chosenCharacters }: Props) => {
   return (
     <>
-      {!allCharacters.includes("Death") && (
+      {!chosenCharacters.includes("Death") && (
         <Box _hover={{ bg: "green" }}>
           <Image
             onClick={() => setCurrentCharacter("Death")}

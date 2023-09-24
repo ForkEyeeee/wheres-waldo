@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
 
-const NavBar = ({ gameState }) => {
+const NavBar = ({ gameState, counter, setCounter }) => {
   return (
     <Box>
       <>
@@ -18,7 +18,11 @@ const NavBar = ({ gameState }) => {
           <HStack justifyContent="space-between" alignItems={"center"}>
             <Heading>Where's Waldo?!</Heading>
             {gameState.start && !gameState.win && (
-              <TimeCounter max={0} gameState={gameState} />
+              <TimeCounter
+                gameState={gameState}
+                counter={counter}
+                setCounter={setCounter}
+              />
             )}
             <Text fontSize={20} fontStyle={"italic"}>
               Find Waldo and his friends!

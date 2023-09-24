@@ -4,12 +4,12 @@ import { Box } from "@chakra-ui/react";
 
 interface Props {
   setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
-  allCharacters: Array<string>;
+  chosenCharacters: Array<string>;
 }
-const SonicImage = ({ setCurrentCharacter, allCharacters }: Props) => {
+const SonicImage = ({ setCurrentCharacter, chosenCharacters }: Props) => {
   return (
     <>
-      {!allCharacters.includes("Sonic The Hedgehog") && (
+      {!chosenCharacters.includes("Sonic The Hedgehog") && (
         <Box _hover={{ bg: "green" }}>
           <Image
             onClick={() => setCurrentCharacter("Sonic The Hedgehog")}

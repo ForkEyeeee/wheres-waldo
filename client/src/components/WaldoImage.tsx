@@ -5,12 +5,12 @@ import { Box } from "@chakra-ui/react";
 
 interface Props {
   setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
-  allCharacters: Array<string>;
+  chosenCharacters: Array<string>;
 }
-const WaldoImage = ({ setCurrentCharacter, allCharacters }: Props) => {
+const WaldoImage = ({ setCurrentCharacter, chosenCharacters }: Props) => {
   return (
     <>
-      {!allCharacters.includes("Waldo") && (
+      {!chosenCharacters.includes("Waldo") && (
         <Box _hover={{ bg: "green" }}>
           <Image
             onClick={() => setCurrentCharacter("Waldo")}

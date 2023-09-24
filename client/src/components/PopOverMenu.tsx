@@ -27,13 +27,20 @@ interface Props {
   setGameState: any;
 }
 
+useEffect(() => {
+  localStorage.setItem("jwt", data.token);
+}, []);
 const PopOverMenu = ({
   currentcharacter,
   setCurrentCharacter,
-  allCharacters,
-  setAllCharacters,
+  chosenCharacters,
+  setChosenCharacters,
   gameState,
   setGameState,
+  setCounter,
+  counter,
+  name,
+  setName,
 }: Props) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
@@ -65,15 +72,15 @@ const PopOverMenu = ({
     },
   ]);
 
-  const [endTime, setEndTime] = useState(0);
+  const [highScore, setHighScore] = useState(false);
 
   useEffect(() => {
-    if (allCharacters.length > 2) {
+    if (chosenCharacters.length > 2) {
       setGameState({
         start: false,
         win: true,
       });
-      setAllCharacters([]);
+      setChosenCharacters([]);
       setCurrentCharacter("");
       setPopUpCoords({
         pageX: "",
@@ -86,12 +93,12 @@ const PopOverMenu = ({
           pageY: undefined,
         },
       ]);
-      setEndTime(Math.floor(Date.now() / 1000));
+      handleAddScore();
     }
-  }, [allCharacters]);
+  }, [chosenCharacters]);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [elapsedTime, setElapsedtime] = useState(0);
+  const { onClose } = useDisclosure();
+
   const toast = useToast();
 
   const handleClick = (event: MouseEvent): void => {
@@ -141,10 +148,10 @@ const PopOverMenu = ({
                 { pageX: popupCoords.pageX, pageY: popupCoords.pageY },
               ]);
 
-          setAllCharacters(
-            allCharacters.length <= 0
+          setChosenCharacters(
+            chosenCharacters.length <= 0
               ? [currentcharacter]
-              : [...allCharacters, currentcharacter]
+              : [...chosenCharacters, currentcharacter]
           );
 
           toast({
@@ -172,34 +179,38 @@ const PopOverMenu = ({
   };
 
   const handleRecordInitialTime = async (event: any) => {
+    const initialTime = Math.floor(Date.now() / 1000);
+    const token = localStorage.getItem("jwt");
     event.preventDefault();
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          time: Math.floor(Date.now() / 1000),
+          time: initialTime,
         }),
       });
+      const { data, success, message } = await response.json();
+      console.log(data);
+      console.log(success);
+      console.log(message);
       if (!response.ok) {
         throw new Error(await response.text());
-      } else {
-        const json = await response.json();
-        if (json.success) {
-          setElapsedtime(json.elapsedTime);
-        }
       }
     } catch (error) {
       console.error(error);
     }
+    // console.log("current initial time " + initialTime);
   };
 
-  const handleAddScore = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get("name");
+  const handleAddScore = async () => {
+    // e.preventDefault();
+    // const formData = new FormData(e.target);
+    // const name = formData.get("name");
+    const endTime = Math.floor(Date.now() / 1000);
     try {
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
         method: "PUT",
@@ -211,25 +222,27 @@ const PopOverMenu = ({
           time: endTime,
         }),
       });
-      console.log(response);
 
       if (!response.ok) {
         throw new Error(await response.text());
       } else {
         const json = await response.json();
         if (json.success) {
-          setGameState({ start: false, win: false });
+          // setGameState({ start: false, win: false });
+          console.log(json);
+          setHighScore(json.highscore);
         }
       }
     } catch (error) {
       console.error(error);
     }
+    console.log("end time " + endTime);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {!gameState.start && (
+        {/* {!gameState.start && (
           <>
             <GameStartModal
               handleClick={handleClick}
@@ -237,18 +250,27 @@ const PopOverMenu = ({
               onClose={onClose}
               setGameState={setGameState}
               gameState={gameState}
+              name={name}
+              setName={setName}
             />
           </>
-        )}
-        {gameState.win && (
-          <GameEndModal
-            handleClick={handleClick}
-            handleAddScore={handleAddScore}
-            onClose={onClose}
-            gameState={gameState}
-            elapsedTime={elapsedTime}
-          />
-        )}
+        )} */}
+
+        <GameEndModal
+          handleClick={handleClick}
+          handleAddScore={handleAddScore}
+          onClose={onClose}
+          gameState={gameState}
+          counter={counter}
+          highScore={highScore}
+          setHighScore={setHighScore}
+          handleRecordInitialTime={handleRecordInitialTime}
+          setGameState={setGameState}
+          setCounter={setCounter}
+          setName={setName}
+          name={name}
+        />
+
         <WheresWaldoBackground handleClick={handleClick} />
         {markerCoords[markerCoords.length - 1].pageX !== undefined &&
           markerCoords[markerCoords.length - 1].pageY !== undefined &&
@@ -296,19 +318,19 @@ const PopOverMenu = ({
                 <button type="submit">
                   <WaldoImage
                     setCurrentCharacter={setCurrentCharacter}
-                    allCharacters={allCharacters}
+                    chosenCharacters={chosenCharacters}
                   />
                 </button>
                 <button type="submit">
                   <SonicImage
                     setCurrentCharacter={setCurrentCharacter}
-                    allCharacters={allCharacters}
+                    chosenCharacters={chosenCharacters}
                   />
                 </button>{" "}
                 <button type="submit">
                   <DeathImage
                     setCurrentCharacter={setCurrentCharacter}
-                    allCharacters={allCharacters}
+                    chosenCharacters={chosenCharacters}
                   />
                 </button>
               </VStack>

@@ -6,7 +6,7 @@ import "./styles.css";
 
 const App = (props: any) => {
   const [currentcharacter, setCurrentCharacter] = useState<string>("");
-  const [allCharacters, setAllCharacters] = useState<string[]>([]);
+  const [chosenCharacters, setChosenCharacters] = useState<string[]>([]);
   const [gameState, setGameState] = useState<{
     start: null | boolean;
     win: null | boolean;
@@ -14,9 +14,19 @@ const App = (props: any) => {
     start: false,
     win: false,
   });
+  const [counter, setCounter] = useState<{
+    seconds: null | number;
+    minutes: null | number;
+  }>({
+    seconds: 0,
+    minutes: 0,
+  });
+  // const [minutes, setminutes] = useState(0);
+
+  const [name, setName] = useState("");
   return (
     <>
-      <NavBar gameState={gameState} />
+      <NavBar gameState={gameState} counter={counter} setCounter={setCounter} />
       <Routes>
         <Route
           path="/"
@@ -24,10 +34,14 @@ const App = (props: any) => {
             <PopOverMenu
               currentcharacter={currentcharacter}
               setCurrentCharacter={setCurrentCharacter}
-              allCharacters={allCharacters}
-              setAllCharacters={setAllCharacters}
+              chosenCharacters={chosenCharacters}
+              setChosenCharacters={setChosenCharacters}
               gameState={gameState}
               setGameState={setGameState}
+              counter={counter}
+              setCounter={setCounter}
+              name={name}
+              setName={setName}
             />
           }
         />
