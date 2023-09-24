@@ -9,8 +9,8 @@ import compression from "compression";
 import helmet from "helmet";
 import cors from "cors";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
 import unprotectedRoutes from "./routes/unprotectedRoutes";
+import jwt from "jsonwebtoken";
 
 const app = express();
 
@@ -48,7 +48,7 @@ function verifyToken(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-app.use("/api", verifyToken, unprotectedRoutes);
+app.use("/api", unprotectedRoutes);
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);

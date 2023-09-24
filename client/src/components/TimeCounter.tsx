@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import { Text } from "@chakra-ui/react";
-const TimerCounter = ({ gameState, counter, setCounter }: any) => {
+
+const TimerCounter = ({ gameState, startTime }) => {
+  const [counter, setCounter] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+
   useEffect(() => {
-    if (gameState.win) return;
-    if (counter.seconds >= 0) {
-      setTimeout(
-        () =>
-          setCounter({
-            seconds: counter.seconds + 1,
-            minutes: counter.minutes,
-          }),
-        1000
-      );
-    }
-    if (counter.seconds >= 60) {
-      setCounter({
-        seconds: 0,
-        minutes: counter.minutes + 1,
-      });
-    }
-  }, [counter]);
+    const intervalId = setInterval(() => {
+      if (gameState.win) return;
+
+      const currentTime = Math.floor(Date.now() / 1000);
+      const elapsedSeconds = currentTime - startTime;
+
+      setCounter(elapsedSeconds % 60);
+      setMinutes(Math.floor(elapsedSeconds / 60));
+    }, 1000);
+
+    return () => clearInterval(intervalId); // cleanup when component unmounts
+  }, [startTime, gameState.win]);
 
   return (
     <Text>
-      {counter.minutes >= 0
-        ? counter.minutes + " min " + counter.seconds + "s"
-        : counter.seconds + " s"}
+      {minutes} min {counter} s
     </Text>
   );
 };

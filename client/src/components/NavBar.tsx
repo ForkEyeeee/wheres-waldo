@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
 
-const NavBar = ({ gameState, counter, setCounter }) => {
+const NavBar = ({ gameState, startTime, setStartTime }) => {
   return (
     <Box>
       <>
@@ -20,8 +20,8 @@ const NavBar = ({ gameState, counter, setCounter }) => {
             {gameState.start && !gameState.win && (
               <TimeCounter
                 gameState={gameState}
-                counter={counter}
-                setCounter={setCounter}
+                startTime={startTime}
+                setStartTime={setStartTime}
               />
             )}
             <Text fontSize={20} fontStyle={"italic"}>

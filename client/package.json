@@ -38,7 +38,8 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.14.2",
     "react-router-hash-link": "^2.4.3",
-    "react-timer-wrapper": "^0.4.1"
+    "react-timer-wrapper": "^0.4.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.3",

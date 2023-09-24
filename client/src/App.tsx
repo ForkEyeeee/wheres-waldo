@@ -3,6 +3,7 @@ import { useState } from "react";
 import PopOverMenu from "./components/PopOverMenu";
 import NavBar from "./components/NavBar";
 import "./styles.css";
+import { start } from "repl";
 
 const App = (props: any) => {
   const [currentcharacter, setCurrentCharacter] = useState<string>("");
@@ -14,19 +15,17 @@ const App = (props: any) => {
     start: false,
     win: false,
   });
-  const [counter, setCounter] = useState<{
-    seconds: null | number;
-    minutes: null | number;
-  }>({
-    seconds: 0,
-    minutes: 0,
-  });
-  // const [minutes, setminutes] = useState(0);
-
   const [name, setName] = useState("");
+  const [startTime, setStartTime] = useState("");
+
+  console.log(startTime);
   return (
     <>
-      <NavBar gameState={gameState} counter={counter} setCounter={setCounter} />
+      <NavBar
+        gameState={gameState}
+        startTime={startTime}
+        setStartTime={setStartTime}
+      />
       <Routes>
         <Route
           path="/"
@@ -38,10 +37,10 @@ const App = (props: any) => {
               setChosenCharacters={setChosenCharacters}
               gameState={gameState}
               setGameState={setGameState}
-              counter={counter}
-              setCounter={setCounter}
               name={name}
               setName={setName}
+              startTime={startTime}
+              setStartTime={setStartTime}
             />
           }
         />

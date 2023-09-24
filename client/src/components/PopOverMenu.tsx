@@ -17,6 +17,8 @@ import DeathImage from "./DeathImage";
 import GameStartModal from "./GameStartModal";
 import GameEndModal from "./GameEndModal";
 import { MouseEvent } from "react";
+import setJWT from "./utils/setJWT";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   currentcharacter: string;
@@ -27,9 +29,6 @@ interface Props {
   setGameState: any;
 }
 
-useEffect(() => {
-  localStorage.setItem("jwt", data.token);
-}, []);
 const PopOverMenu = ({
   currentcharacter,
   setCurrentCharacter,
@@ -37,10 +36,10 @@ const PopOverMenu = ({
   setChosenCharacters,
   gameState,
   setGameState,
-  setCounter,
-  counter,
   name,
   setName,
+  startTime,
+  setStartTime,
 }: Props) => {
   const [imageCoords, setImageCoords] = useState<{
     pageX?: null | number;
@@ -72,7 +71,9 @@ const PopOverMenu = ({
     },
   ]);
 
-  const [highScore, setHighScore] = useState(false);
+  const [endTime, setEndTime] = useState(0);
+
+  const [highScore, setHighScore] = useState("");
 
   useEffect(() => {
     if (chosenCharacters.length > 2) {
@@ -93,6 +94,7 @@ const PopOverMenu = ({
           pageY: undefined,
         },
       ]);
+      setEndTime(Math.floor(Date.now() / 1000));
       handleAddScore();
     }
   }, [chosenCharacters]);
@@ -178,48 +180,17 @@ const PopOverMenu = ({
     }
   };
 
-  const handleRecordInitialTime = async (event: any) => {
-    const initialTime = Math.floor(Date.now() / 1000);
-    const token = localStorage.getItem("jwt");
-    event.preventDefault();
+  const handleAddScore = async () => {
     try {
+      const token = localStorage.getItem("jwt");
       const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          time: initialTime,
-        }),
-      });
-      const { data, success, message } = await response.json();
-      console.log(data);
-      console.log(success);
-      console.log(message);
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    // console.log("current initial time " + initialTime);
-  };
-
-  const handleAddScore = async () => {
-    // e.preventDefault();
-    // const formData = new FormData(e.target);
-    // const name = formData.get("name");
-    const endTime = Math.floor(Date.now() / 1000);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
           name: name,
-          time: endTime,
         }),
       });
 
@@ -227,10 +198,9 @@ const PopOverMenu = ({
         throw new Error(await response.text());
       } else {
         const json = await response.json();
-        if (json.success) {
-          // setGameState({ start: false, win: false });
-          console.log(json);
-          setHighScore(json.highscore);
+        console.log(json);
+        if (json.success && json.highscore) {
+          setHighScore(json.elapsedTime);
         }
       }
     } catch (error) {
@@ -242,35 +212,30 @@ const PopOverMenu = ({
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {/* {!gameState.start && (
+        {!gameState.start && !gameState.win && (
           <>
             <GameStartModal
               handleClick={handleClick}
-              handleRecordInitialTime={handleRecordInitialTime}
               onClose={onClose}
               setGameState={setGameState}
               gameState={gameState}
               name={name}
               setName={setName}
+              startTime={startTime}
+              setStartTime={setStartTime}
             />
           </>
-        )} */}
-
-        <GameEndModal
-          handleClick={handleClick}
-          handleAddScore={handleAddScore}
-          onClose={onClose}
-          gameState={gameState}
-          counter={counter}
-          highScore={highScore}
-          setHighScore={setHighScore}
-          handleRecordInitialTime={handleRecordInitialTime}
-          setGameState={setGameState}
-          setCounter={setCounter}
-          setName={setName}
-          name={name}
-        />
-
+        )}
+        {gameState.win && (
+          <GameEndModal
+            handleClick={handleClick}
+            handleAddScore={handleAddScore}
+            onClose={onClose}
+            gameState={gameState}
+            setGameState={setGameState}
+            highScore={highScore}
+          />
+        )}
         <WheresWaldoBackground handleClick={handleClick} />
         {markerCoords[markerCoords.length - 1].pageX !== undefined &&
           markerCoords[markerCoords.length - 1].pageY !== undefined &&

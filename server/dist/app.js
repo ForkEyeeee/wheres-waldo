@@ -13,8 +13,8 @@ const compression_1 = __importDefault(require("compression"));
 const helmet_1 = __importDefault(require("helmet"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const unprotectedRoutes_1 = __importDefault(require("./routes/unprotectedRoutes"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const app = (0, express_1.default)();
 // Compress all routes
 app.use(helmet_1.default.contentSecurityPolicy({
@@ -46,7 +46,7 @@ function verifyToken(req, res, next) {
         return res.status(401).json({ success: false, message: "Invalid token." });
     }
 }
-app.use("/api", verifyToken, unprotectedRoutes_1.default);
+app.use("/api", unprotectedRoutes_1.default);
 // Set up mongoose connection
 mongoose_1.default.set("strictQuery", false);
 const mongoDB = process.env.MONGODB_URI || process.env.dev_db_url;
