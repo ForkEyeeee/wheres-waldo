@@ -71,7 +71,7 @@ Visit the application in your browser at `http://localhost:5173`.
 
 - [React](https://reactjs.org/) - UI library for building web applications.
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) - Tool for testing React components.
-- [Jest](https://jestjs.io/) - JavaScript testing framework.
+- [Vitest](https://vitest.dev/) - Test runner built for Vite projects.
 - [Chakra UI](https://chakra-ui.com/) - React component library.
 - [Express](https://expressjs.com/) - Web framework for Node.js.
 - [MongoDB](https://www.mongodb.com/) - NoSQL database.
