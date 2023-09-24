@@ -70,7 +70,7 @@ const PopOverMenu = ({
   useEffect(() => {
     if (allCharacters.length > 2) {
       setGameState({
-        start: true,
+        start: false,
         win: true,
       });
       setAllCharacters([]);
@@ -131,8 +131,6 @@ const PopOverMenu = ({
         throw new Error(await response.text());
       } else {
         const json = await response.json();
-        console.log(json);
-
         if (json.success) {
           markerCoords.length <= 0
             ? setMarkerCoords([
@@ -157,7 +155,7 @@ const PopOverMenu = ({
             isClosable: true,
           });
         } else {
-          if (!gameState.start)
+          if (gameState.start)
             toast({
               title: `No ones here!`,
               description: "Keep trying",
@@ -167,6 +165,7 @@ const PopOverMenu = ({
             });
         }
       }
+      setIsPopUp(false);
     } catch (error) {
       console.error(error);
     }
