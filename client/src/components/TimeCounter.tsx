@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Text } from "@chakra-ui/react";
 const TimerCounter = ({ max, gameState }: any) => {
   const [counter, setCounter] = useState(max);
   const [minutes, setminutes] = useState(0);
@@ -15,9 +15,9 @@ const TimerCounter = ({ max, gameState }: any) => {
   }, [counter]);
 
   return (
-    <span>
+    <Text>
       {minutes >= 0 ? minutes + " min " + counter + "s" : counter + " s"}
-    </span>
+    </Text>
   );
 };
 

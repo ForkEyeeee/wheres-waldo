@@ -65,6 +65,8 @@ const PopOverMenu = ({
     },
   ]);
 
+  const [endTime, setEndTime] = useState(0);
+
   useEffect(() => {
     if (allCharacters.length > 2) {
       setGameState({
@@ -84,6 +86,7 @@ const PopOverMenu = ({
           pageY: undefined,
         },
       ]);
+      setEndTime(Math.floor(Date.now() / 1000));
     }
   }, [allCharacters]);
 
@@ -206,7 +209,7 @@ const PopOverMenu = ({
         },
         body: JSON.stringify({
           name: name,
-          time: Math.floor(Date.now() / 1000),
+          time: endTime,
         }),
       });
       console.log(response);
