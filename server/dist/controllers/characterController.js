@@ -39,11 +39,8 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
     let { time, name } = req.body;
     if (typeof req.body.name === "undefined") {
         try {
-            console.log("setting time");
-            console.log(time);
             app.locals.time = time;
-            // console.log(app.locals);
-            res.json({ Message: app.locals.time });
+            res.json({ Message: app.locals.time, success: true });
         }
         catch (error) {
             res.status(500).json({ Message: error, success: false });
@@ -51,21 +48,18 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
     }
     else {
         try {
-            const toTime = seconds => {
-                var date = new Date(null);
-                date.setSeconds(seconds);
+            const toTime = (elapsedTime) => {
+                const date = new Date(0);
+                date.setSeconds(elapsedTime);
                 return date.toISOString().substr(11, 8);
             };
             const elapsedTime = time - app.locals.time;
-            console.log(time);
-            console.log(app.locals.time);
             const newUser = new user_1.default({
                 username: name,
                 time: toTime(elapsedTime),
             });
             await newUser.save();
-            //save elapsed time to db with their name. adda l eaderbaord display with al scores
-            res.json({ elapsedTime: elapsedTime, success: true });
+            res.json({ elapsedTime: toTime(elapsedTime), success: true });
         }
         catch (error) {
             res.status(500).json({ Message: error, success: false });

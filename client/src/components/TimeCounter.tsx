@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-const TimerCounter = ({ max }) => {
+const TimerCounter = ({ max, gameState }: any) => {
   const [counter, setCounter] = useState(max);
   const [minutes, setminutes] = useState(0);
   useEffect(() => {
+    if (gameState.win) return;
     if (counter >= 0) {
       setTimeout(() => setCounter(counter + 1), 1000);
     }

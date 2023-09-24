@@ -55,8 +55,8 @@ const PopOverMenu = ({
 
   const [markerCoords, setMarkerCoords] = useState<
     {
-      pageX: null | number | undefined | string;
-      pageY: null | number | undefined | string;
+      pageX: number | undefined | string;
+      pageY: number | undefined | string;
     }[]
   >([
     {
@@ -80,8 +80,8 @@ const PopOverMenu = ({
       setIsPopUp(false);
       setMarkerCoords([
         {
-          pageX: null,
-          pageY: null,
+          pageX: undefined,
+          pageY: undefined,
         },
       ]);
     }

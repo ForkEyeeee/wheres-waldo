@@ -21,7 +21,7 @@ describe("Character API tests", () => {
     afterEach(async () => {
         await character_1.default.deleteMany();
     });
-    test("unprotectedRoutes", done => {
+    test("validateLocationPost", done => {
         (0, supertest_1.default)(appTest)
             .post("/")
             .send({ character: "Waldo", pageX: 46, pageY: 91 })
@@ -35,4 +35,37 @@ describe("Character API tests", () => {
         })
             .end(done);
     });
+});
+test("updateTimePutInitial", done => {
+    (0, supertest_1.default)(appTest)
+        .put("/")
+        .send({
+        time: 1695516900,
+    })
+        .expect(200)
+        .expect("Content-Type", /json/)
+        .expect({ Message: 1695516900, success: true })
+        .expect((res) => {
+        if (res.body === undefined) {
+            throw new Error("Expected response body to be true or false");
+        }
+    })
+        .end(done);
+});
+test("updateTimePutEnd", done => {
+    (0, supertest_1.default)(appTest)
+        .put("/")
+        .send({
+        time: 1695516950,
+        name: "Jeff",
+    })
+        .expect(200)
+        .expect("Content-Type", /json/)
+        .expect({ elapsedTime: 50, success: true })
+        .expect((res) => {
+        if (res.body === undefined) {
+            throw new Error("Expected response body to be true or false");
+        }
+    })
+        .end(done);
 });

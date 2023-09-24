@@ -5,8 +5,8 @@ import { body, validationResult } from "express-validator";
 import Character from "../models/character";
 import User from "../models/user";
 import asyncHandler from "express-async-handler";
-import Globals from "./globals";
 import express from "express";
+
 const app = express();
 
 export const validateLocationPost = asyncHandler(
@@ -42,31 +42,25 @@ export const updateTimePut = asyncHandler(
     let { time, name } = req.body;
     if (typeof req.body.name === "undefined") {
       try {
-        console.log("setting time");
-        console.log(time);
         app.locals.time = time;
-        // console.log(app.locals);
-        res.json({ Message: app.locals.time });
+        res.json({ Message: app.locals.time, success: true });
       } catch (error) {
         res.status(500).json({ Message: error, success: false });
       }
     } else {
       try {
-        const toTime = seconds => {
-          var date = new Date(null);
-          date.setSeconds(seconds);
+        const toTime = (elapsedTime: number) => {
+          const date = new Date(0);
+          date.setSeconds(elapsedTime);
           return date.toISOString().substr(11, 8);
         };
         const elapsedTime = time - app.locals.time;
-        console.log(time);
-        console.log(app.locals.time);
         const newUser = new User({
           username: name,
           time: toTime(elapsedTime),
         });
         await newUser.save();
-        //save elapsed time to db with their name. adda l eaderbaord display with al scores
-        res.json({ elapsedTime: elapsedTime, success: true });
+        res.json({ elapsedTime: toTime(elapsedTime), success: true });
       } catch (error) {
         res.status(500).json({ Message: error, success: false });
       }

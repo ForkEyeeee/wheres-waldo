@@ -16,7 +16,7 @@ const App = (props: any) => {
   });
   return (
     <>
-      <NavBar />
+      <NavBar gameState={gameState} />
       <Routes>
         <Route
           path="/"

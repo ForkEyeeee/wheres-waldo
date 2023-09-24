@@ -1,15 +1,9 @@
 import { Box, HStack, Flex, Heading, Text } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-// import parseJwt from "./utils/parseJWT";
-// import validateToken from "./utils/validateToken";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
-import { useState } from "react";
 import TimeCounter from "./TimeCounter";
-const NavBar = () => {
-  const navigate = useNavigate();
 
+const NavBar = ({ gameState }) => {
   return (
     <Box>
       <>
@@ -23,7 +17,9 @@ const NavBar = () => {
         >
           <HStack justifyContent="space-between" alignItems={"center"}>
             <Heading>Where's Waldo?!</Heading>
-            <TimeCounter max={0} />
+            {gameState.start && !gameState.win && (
+              <TimeCounter max={0} gameState={gameState} />
+            )}
             <Text fontSize={20} fontStyle={"italic"}>
               Find Waldo and his friends!
             </Text>
