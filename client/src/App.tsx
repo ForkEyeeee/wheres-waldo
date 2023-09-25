@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import PopOverMenu from "./components/PopOverMenu";
+import LeaderBoard from "./components/LeaderBoard";
 import NavBar from "./components/NavBar";
 import "./styles.css";
 
@@ -23,6 +24,7 @@ const App = () => {
     seconds: 0,
     minutes: 0,
   });
+
   return (
     <>
       <NavBar
@@ -48,6 +50,7 @@ const App = () => {
             />
           }
         />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
     </>
   );

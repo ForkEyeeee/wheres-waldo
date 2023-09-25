@@ -8,4 +8,5 @@ const characterController_2 = require("../controllers/characterController");
 MyRouter.post("/", characterController_1.validateLocationPost);
 MyRouter.put("/", characterController_2.updateTimePut);
 MyRouter.patch("/", characterController_2.setJWT);
+MyRouter.get("/leaderboard", characterController_2.getLeaderBoard);
 exports.default = MyRouter;

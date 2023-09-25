@@ -13,6 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
+import { useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
 
 interface Props {
@@ -31,6 +32,7 @@ const GameEndModal = ({
   highScore,
   setGameState,
 }: Props) => {
+  const navigate = useNavigate();
   return (
     <Box data-testid="game-end-modal">
       <WheresWaldoBackground handleClick={handleClick} />
@@ -48,6 +50,9 @@ const GameEndModal = ({
             )}
           </ModalBody>
           <ModalFooter justifyContent={"center"}>
+            <Button onClick={() => navigate("/leaderboard")}>
+              View Leaderboard
+            </Button>
             <Button
               onClick={() =>
                 setGameState({ start: gameState.start, win: false })

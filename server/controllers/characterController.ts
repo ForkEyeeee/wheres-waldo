@@ -126,7 +126,20 @@ export const setJWT = asyncHandler(
         },
       });
     } catch (err) {
-      console.log(err);
+      const error = new Error("Error! Something went wrong.");
+      return next(error);
+    }
+  }
+);
+export const getLeaderBoard = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await User.find({});
+      res.status(200).json({
+        success: true,
+        users: users,
+      });
+    } catch (err) {
       const error = new Error("Error! Something went wrong.");
       return next(error);
     }
