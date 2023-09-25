@@ -1,6 +1,5 @@
 import { Image, border } from "@chakra-ui/react";
 import waldoImage from "/assets/images/waldo.png";
-import { MouseEvent } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {

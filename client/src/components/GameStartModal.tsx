@@ -16,10 +16,19 @@ import setJWT from "./utils/setJWT";
 
 interface Props {
   handleClick: (event: MouseEvent) => void;
-  handleRecordInitialTime: any;
-  onClose: any;
-  setGameState: any;
-  gameState: any;
+  onClose: () => void;
+  setGameState: React.Dispatch<
+    React.SetStateAction<{
+      start: null | boolean;
+      win: null | boolean;
+    }>
+  >;
+  gameState: {
+    start: null | boolean;
+    win: null | boolean;
+  };
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setStartTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const GameStartModal = ({

@@ -23,10 +23,21 @@ import { v4 as uuidv4 } from "uuid";
 interface Props {
   currentcharacter: string;
   setCurrentCharacter: React.Dispatch<React.SetStateAction<string>>;
-  allCharacters: Array<string>;
-  setAllCharacters: React.Dispatch<React.SetStateAction<string[]>>;
-  gameState: any;
-  setGameState: any;
+  gameState: {
+    start: null | boolean;
+    win: null | boolean;
+  };
+  setGameState: React.Dispatch<
+    React.SetStateAction<{
+      start: null | boolean;
+      win: null | boolean;
+    }>
+  >;
+  chosenCharacters: string[];
+  setChosenCharacters: React.Dispatch<React.SetStateAction<string[]>>;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setStartTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PopOverMenu = ({
@@ -38,7 +49,6 @@ const PopOverMenu = ({
   setGameState,
   name,
   setName,
-  startTime,
   setStartTime,
 }: Props) => {
   const [imageCoords, setImageCoords] = useState<{
@@ -71,8 +81,6 @@ const PopOverMenu = ({
     },
   ]);
 
-  const [endTime, setEndTime] = useState(0);
-
   const [highScore, setHighScore] = useState("");
 
   useEffect(() => {
@@ -94,7 +102,6 @@ const PopOverMenu = ({
           pageY: undefined,
         },
       ]);
-      setEndTime(Math.floor(Date.now() / 1000));
       handleAddScore();
     }
   }, [chosenCharacters]);
@@ -206,7 +213,6 @@ const PopOverMenu = ({
     } catch (error) {
       console.error(error);
     }
-    console.log("end time " + endTime);
   };
 
   return (
@@ -219,9 +225,7 @@ const PopOverMenu = ({
               onClose={onClose}
               setGameState={setGameState}
               gameState={gameState}
-              name={name}
               setName={setName}
-              startTime={startTime}
               setStartTime={setStartTime}
             />
           </>

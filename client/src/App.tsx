@@ -3,9 +3,8 @@ import { useState } from "react";
 import PopOverMenu from "./components/PopOverMenu";
 import NavBar from "./components/NavBar";
 import "./styles.css";
-import { start } from "repl";
 
-const App = (props: any) => {
+const App = () => {
   const [currentcharacter, setCurrentCharacter] = useState<string>("");
   const [chosenCharacters, setChosenCharacters] = useState<string[]>([]);
   const [gameState, setGameState] = useState<{
@@ -17,14 +16,20 @@ const App = (props: any) => {
   });
   const [name, setName] = useState("");
   const [startTime, setStartTime] = useState("");
-
-  console.log(startTime);
+  const [timeElapsed, setTimeElapsed] = useState<{
+    seconds: null | number;
+    minutes: null | number;
+  }>({
+    seconds: 0,
+    minutes: 0,
+  });
   return (
     <>
       <NavBar
         gameState={gameState}
         startTime={startTime}
-        setStartTime={setStartTime}
+        timeElapsed={timeElapsed}
+        setTimeElapsed={setTimeElapsed}
       />
       <Routes>
         <Route
@@ -39,7 +44,6 @@ const App = (props: any) => {
               setGameState={setGameState}
               name={name}
               setName={setName}
-              startTime={startTime}
               setStartTime={setStartTime}
             />
           }

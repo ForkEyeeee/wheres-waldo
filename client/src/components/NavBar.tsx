@@ -3,7 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
 
-const NavBar = ({ gameState, startTime, setStartTime }) => {
+interface Props {
+  gameState: {
+    start: null | boolean;
+    win: null | boolean;
+  };
+  startTime: string;
+  timeElapsed: {
+    seconds: number | null;
+    minutes: number | null;
+  };
+  setTimeElapsed: React.Dispatch<
+    React.SetStateAction<{
+      seconds: number | null;
+      minutes: number | null;
+    }>
+  >;
+}
+
+const NavBar = ({
+  gameState,
+  startTime,
+  timeElapsed,
+  setTimeElapsed,
+}: Props) => {
   return (
     <Box>
       <>
@@ -21,7 +44,8 @@ const NavBar = ({ gameState, startTime, setStartTime }) => {
               <TimeCounter
                 gameState={gameState}
                 startTime={startTime}
-                setStartTime={setStartTime}
+                timeElapsed={timeElapsed}
+                setTimeElapsed={setTimeElapsed}
               />
             )}
             <Text fontSize={20} fontStyle={"italic"}>

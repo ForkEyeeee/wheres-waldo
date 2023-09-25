@@ -20,11 +20,12 @@ interface Props {
   handleAddScore: any;
   onClose: any;
   gameState: any;
+  highScore: any;
+  setGameState: any;
 }
 
 const GameEndModal = ({
   handleClick,
-  handleAddScore,
   onClose,
   gameState,
   highScore,
