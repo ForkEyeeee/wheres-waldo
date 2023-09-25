@@ -9,9 +9,7 @@ dotenv_1.default.config();
 const character_1 = __importDefault(require("../models/character"));
 const user_1 = __importDefault(require("../models/user"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const app = (0, express_1.default)();
 exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, res, next) => {
     try {
         const { character, pageX, pageY } = req.body;
@@ -41,11 +39,8 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
     const usertoken = req.headers.authorization;
     const token = usertoken.split(" ");
     const decoded = jsonwebtoken_1.default.verify(token[1], process.env.signature);
-    console.log(decoded);
     const serverEndTime = Math.floor(Date.now() / 1000);
-    const elapsedTime = serverEndTime - decoded.iat; // Replaced 'time' with 'decoded.iat'
-    console.log("this is elapsed time " + elapsedTime);
-    // 'name' comes from the request body
+    const elapsedTime = serverEndTime - decoded.iat;
     try {
         const topTenUsers = await user_1.default.find()
             .sort({ time: -1 })
@@ -56,7 +51,7 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
             date.setSeconds(elapsedTime);
             return date.toISOString().substr(11, 8);
         };
-        const timeStringToNumber = time => {
+        const timeStringToNumber = (time) => {
             const timeString = time;
             const [hours, minutes, seconds] = timeString.split(":").map(Number);
             return hours * 3600 + minutes * 60 + seconds;
@@ -95,16 +90,15 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
 exports.setJWT = (0, express_async_handler_1.default)(async (req, res, next) => {
     const serverStartTime = Math.floor(Date.now() / 1000);
     try {
-        // Include server start time in JWT
         const token = jsonwebtoken_1.default.sign({ userId: req.body.userId, startTime: serverStartTime }, process.env.signature, {
-            expiresIn: "30m",
+            expiresIn: "365d",
         });
         res.status(200).json({
             success: true,
             data: {
                 userId: req.body.userId,
                 token: token,
-                startTime: serverStartTime, // send this to the client
+                startTime: serverStartTime,
             },
         });
     }

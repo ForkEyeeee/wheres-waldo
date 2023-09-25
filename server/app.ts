@@ -10,7 +10,7 @@ import helmet from "helmet";
 import cors from "cors";
 import mongoose from "mongoose";
 import unprotectedRoutes from "./routes/unprotectedRoutes";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 const app = express();
 
@@ -31,22 +31,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(compression());
 
-function verifyToken(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Token not provided." });
-  }
-  const token = authHeader.split(" ")[1]; // Expecting 'Bearer TOKEN'
-  try {
-    const decodedToken = jwt.verify(token, process.env.signature);
-    (req as any).userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
-    next(); // Proceed to next middleware or route handler
-  } catch (error) {
-    return res.status(401).json({ success: false, message: "Invalid token." });
-  }
-}
+// function verifyToken(req: Request, res: Response, next: NextFunction) {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader) {
+//     return res
+//       .status(401)
+//       .json({ success: false, message: "Token not provided." });
+//   }
+//   const token = authHeader.split(" ")[1]; // Expecting 'Bearer TOKEN'
+//   try {
+//     const decodedToken = jwt.verify(token, process.env.signature as any);
+//     (req as any).userData = decodedToken; // Now, you can access user details via req.userData in routes after this middleware
+//     next(); // Proceed to next middleware or route handler
+//   } catch (error) {
+//     return res.status(401).json({ success: false, message: "Invalid token." });
+//   }
+// }
 
 app.use("/api", unprotectedRoutes);
 

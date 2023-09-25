@@ -1,14 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Request, Response, NextFunction } from "express";
-import { body, validationResult } from "express-validator";
 import Character from "../models/character";
 import User from "../models/user";
 import asyncHandler from "express-async-handler";
-import express from "express";
 import jwt from "jsonwebtoken";
-
-const app = express();
 
 export const validateLocationPost = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -38,18 +34,20 @@ export const validateLocationPost = asyncHandler(
   }
 );
 
+declare module "jsonwebtoken" {
+  export interface UserIDJwtPayload extends jwt.JwtPayload {
+    userId: string;
+  }
+}
+
 export const updateTimePut = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let { name } = req.body;
-
     const usertoken: any = req.headers.authorization;
     const token = usertoken.split(" ");
-    const decoded = jwt.verify(token[1], process.env.signature);
-    console.log(decoded);
+    const decoded: any = jwt.verify(token[1], process.env.signature as any);
     const serverEndTime = Math.floor(Date.now() / 1000);
-    const elapsedTime = serverEndTime - decoded.iat; // Replaced 'time' with 'decoded.iat'
-    console.log("this is elapsed time " + elapsedTime);
-    // 'name' comes from the request body
+    const elapsedTime = serverEndTime - decoded.iat;
 
     try {
       const topTenUsers = await User.find()
@@ -57,13 +55,14 @@ export const updateTimePut = asyncHandler(
         .collation({ locale: "en_US", numericOrdering: true });
 
       const lastUser = topTenUsers[0];
+
       const toTime = (elapsedTime: number) => {
         const date = new Date(0);
         date.setSeconds(elapsedTime);
         return date.toISOString().substr(11, 8);
       };
 
-      const timeStringToNumber = time => {
+      const timeStringToNumber = (time: string) => {
         const timeString = time;
         const [hours, minutes, seconds] = timeString.split(":").map(Number);
         return hours * 3600 + minutes * 60 + seconds;
@@ -111,12 +110,11 @@ export const setJWT = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const serverStartTime = Math.floor(Date.now() / 1000);
     try {
-      // Include server start time in JWT
       const token = jwt.sign(
         { userId: req.body.userId, startTime: serverStartTime },
-        process.env.signature,
+        process.env.signature as any,
         {
-          expiresIn: "30m",
+          expiresIn: "365d",
         }
       );
       res.status(200).json({
@@ -124,7 +122,7 @@ export const setJWT = asyncHandler(
         data: {
           userId: req.body.userId,
           token: token,
-          startTime: serverStartTime, // send this to the client
+          startTime: serverStartTime,
         },
       });
     } catch (err) {

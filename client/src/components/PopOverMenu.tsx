@@ -205,7 +205,6 @@ const PopOverMenu = ({
         throw new Error(await response.text());
       } else {
         const json = await response.json();
-        console.log(json);
         if (json.success && json.highscore) {
           setHighScore(json.elapsedTime);
         }
