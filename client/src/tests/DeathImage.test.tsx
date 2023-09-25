@@ -1,22 +1,14 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
-import { describe, it, vi, expect } from "vitest";
-import DeathImage from "../components/DeathImage";
+import { describe, it, expect } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
 
 describe("DeathImage", () => {
   it("renders DeathImage Component", async () => {
-    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
-    const handleClick = vi.fn();
     render(
       <BrowserRouter>
-        <App>
-          <DeathImage
-            setCurrentCharacter={handleClick}
-            allCharacters={allCharacters}
-          />
-        </App>
+        <App />
       </BrowserRouter>
     );
     const deathImage = await screen.findByTestId("death-image");

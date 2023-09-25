@@ -1,24 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, vi, expect } from "vitest";
-import PopOverMenu from "../components/PopOverMenu";
+import WaldoImage from "../components/WaldoImage";
+import { BrowserRouter } from "react-router-dom";
+import App from "../App";
 
 describe("PopOverMenu", () => {
   it("renders PopOverMenu Component", () => {
-    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
-    const currentCharacter = "Waldo";
-    const handleClick = vi.fn();
+    const chosenCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
+    const handleClick: any = vi.fn();
     render(
-      <PopOverMenu
-        allCharacters={allCharacters}
-        currentcharacter={currentCharacter}
+      <WaldoImage
         setCurrentCharacter={handleClick}
-        setAllCharacters={handleClick}
-        gameState={handleClick}
-        setGameState={handleClick}
+        chosenCharacters={chosenCharacters}
       />
     );
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
     handleClick("hello", 1);
-    expect(handleClick).toHaveBeenCalledTimes(4);
+    expect(handleClick).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId("popover-buttons")).toBeInTheDocument();
   });
 });

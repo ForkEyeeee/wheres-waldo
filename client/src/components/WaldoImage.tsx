@@ -1,4 +1,4 @@
-import { Image, border } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import waldoImage from "/assets/images/waldo.png";
 import { Box } from "@chakra-ui/react";
 

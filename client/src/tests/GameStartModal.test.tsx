@@ -5,15 +5,16 @@ import { BrowserRouter } from "react-router-dom";
 
 describe("GameEndModal", () => {
   it("renders GameStartModal Component", async () => {
-    const handleClick = vi.fn();
+    const handleClick: any = vi.fn();
     render(
       <BrowserRouter>
         <GameStartModal
           handleClick={handleClick}
-          handleRecordInitialTime={handleClick}
           onClose={handleClick}
           gameState={handleClick}
           setGameState={handleClick}
+          setName={handleClick}
+          setStartTime={handleClick}
         />
       </BrowserRouter>
     );

@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 describe("GameEndModal", () => {
   it("renders GameEndModal Component", async () => {
-    const handleClick = vi.fn();
+    const handleClick: any = vi.fn();
     render(
       <BrowserRouter>
         <GameEndModal
@@ -13,7 +13,8 @@ describe("GameEndModal", () => {
           handleAddScore={handleClick}
           onClose={handleClick}
           gameState={handleClick}
-          elapsedTime={handleClick}
+          highScore={handleClick}
+          setGameState={handleClick}
         />
       </BrowserRouter>
     );

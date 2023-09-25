@@ -6,17 +6,18 @@ import App from "../App";
 
 describe("WaldoImage", () => {
   it("renders WaldoImage Component", async () => {
-    const allCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
+    const chosenCharacters = ["Waldo", "Sonic The Hedgehog", "Death"];
     const handleClick = vi.fn();
     render(
       <BrowserRouter>
-        <App>
-          <WaldoImage
-            setCurrentCharacter={handleClick}
-            allCharacters={allCharacters}
-          />
-        </App>
+        <App />
       </BrowserRouter>
+    );
+    render(
+      <WaldoImage
+        setCurrentCharacter={handleClick}
+        chosenCharacters={chosenCharacters}
+      />
     );
     const sonicImage = await screen.findByTestId("waldo-image");
     expect(sonicImage).toBeInTheDocument();
