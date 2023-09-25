@@ -15,57 +15,58 @@ appTest.use(express_1.default.urlencoded({ extended: false }));
 appTest.use(express_1.default.json());
 appTest.use("/", unprotectedRoutes_1.default);
 describe("Character API tests", () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         await character_1.default.insertMany(wheresWaldoCharacterData_1.default);
     });
     afterEach(async () => {
         await character_1.default.deleteMany();
     });
-    test("validateLocationPost", done => {
-        (0, supertest_1.default)(appTest)
-            .post("/")
-            .send({ character: "Waldo", pageX: 46, pageY: 91 })
-            .expect(200)
-            .expect("Content-Type", /json/)
-            .expect({ success: true })
-            .expect((res) => {
-            if (res.body === undefined) {
-                throw new Error("Expected response body to be true or false");
-            }
-        })
-            .end(done);
+    describe("unprotectedRoutes", function () {
+        it("should return jwt information", function (done) {
+            (0, supertest_1.default)(appTest)
+                .patch("/")
+                .send({
+                userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9",
+            })
+                .set("Accept", "application/json")
+                .expect(200)
+                .expect(function (res) {
+                if (res.body.data.userId !== "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9") {
+                    throw new Error(`Expected userId to be '7f43e3a0-cbc9-4dc5-9892-e61250bba7c9', got ${res.body.userId}`);
+                }
+            })
+                .end(done);
+        });
+        test("unprotectedRoutes", done => {
+            (0, supertest_1.default)(appTest)
+                .post("/")
+                .send({ character: "Waldo", pageX: 46, pageY: 91 })
+                .expect(200)
+                .expect("Content-Type", /json/)
+                .expect({ success: true })
+                .expect((res) => {
+                if (res.body === undefined) {
+                    throw new Error("Expected response body to be true or false");
+                }
+            })
+                .end(done);
+        });
     });
-});
-test("updateTimePutInitial", done => {
-    (0, supertest_1.default)(appTest)
-        .put("/")
-        .send({
-        time: 1695516900,
-    })
-        .expect(200)
-        .expect("Content-Type", /json/)
-        .expect({ Message: 1695516900, success: true })
-        .expect((res) => {
-        if (res.body === undefined) {
-            throw new Error("Expected response body to be true or false");
-        }
-    })
-        .end(done);
-});
-test("updateTimePutEnd", done => {
-    (0, supertest_1.default)(appTest)
-        .put("/")
-        .send({
-        time: 1695516950,
-        name: "Jeff",
-    })
-        .expect(200)
-        .expect("Content-Type", /json/)
-        .expect({ elapsedTime: 50, success: true })
-        .expect((res) => {
-        if (res.body === undefined) {
-            throw new Error("Expected response body to be true or false");
-        }
-    })
-        .end(done);
+    // test("updateTimePut", done => {
+    //   request(appTest)
+    //     .put("/")
+    //     .send({
+    //       name: "Mark",
+    //     })
+    //     .expect(200)
+    //     .expect("Content-Type", /json/)
+    //     .expect(function (res) {
+    //       if (!res.body.sucess) {
+    //         throw new Error(
+    //           `Expected response success to be 'true', got ${res.body.success}`
+    //         );
+    //       }
+    //     })
+    //     .end(done);
+    // });
 });

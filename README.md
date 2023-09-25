@@ -23,7 +23,12 @@ Ensure [Node.js](https://nodejs.org/en/download/) and [npm](http://npmjs.com) ar
    npm install
    ```
 
-3. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains your MongoDB connection URI in the format `dev_db_url="your_connection_string"`
+3. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains the following:
+
+   ```
+   dev_db_url="your_connection_string"
+   JWT_SECRET="your_jwt_secret"
+   ```
 
 4. Launch the server:
 
@@ -76,6 +81,7 @@ Visit the application in your browser at `http://localhost:5173`.
 - [Express](https://expressjs.com/) - Web framework for Node.js.
 - [MongoDB](https://www.mongodb.com/) - NoSQL database.
 - [Mongoose](https://mongoosejs.com/) - Data modeling for MongoDB.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON Web Token implementation for Node.js.
 - [Supertest](https://www.npmjs.com/package/supertest) - HTTP testing library.
 - [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) - In-memory MongoDB server.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Environment variable manager.
