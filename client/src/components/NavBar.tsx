@@ -1,8 +1,9 @@
 import { Box, HStack, Flex, Heading, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
-
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 interface Props {
   gameState: {
     start: null | boolean;
@@ -27,6 +28,8 @@ const NavBar = ({
   timeElapsed,
   setTimeElapsed,
 }: Props) => {
+  const isLocation = useLocation().pathname === "/leaderboard";
+  console.log(location);
   return (
     <Box>
       <>
@@ -47,6 +50,11 @@ const NavBar = ({
                 timeElapsed={timeElapsed}
                 setTimeElapsed={setTimeElapsed}
               />
+            )}
+            {isLocation && (
+              <ChakraLink as={ReactRouterLink} to={`/`}>
+                Back to Game
+              </ChakraLink>
             )}
             <Text fontSize={20} fontStyle={"italic"}>
               Find Waldo and his friends!

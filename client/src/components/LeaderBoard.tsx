@@ -1,5 +1,15 @@
-import { HStack, VStack, Text, Box, Heading } from "@chakra-ui/react";
+import {
+  HStack,
+  VStack,
+  Text,
+  Box,
+  Heading,
+  Center,
+  Divider,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import Score from "./Score";
+import UserName from "./UserName";
 
 const LeaderBoard = () => {
   const [data, setData] = useState();
@@ -22,6 +32,7 @@ const LeaderBoard = () => {
         } else {
           const json = await response.json();
           setData(json.users);
+          console.log(json);
         }
       } catch (error) {
         console.error(error);
@@ -29,14 +40,32 @@ const LeaderBoard = () => {
     };
     getLeaderBoard();
   }, []);
-
+  console.log(data);
   return (
     <Box>
-      <Heading>Leaderboard</Heading>
-      <HStack>
-        <VStack></VStack>
-        <VStack></VStack>
-      </HStack>
+      <Center>
+        <Heading>Leaderboard</Heading>
+      </Center>
+      <Center>
+        <HStack spacing={100}>
+          <VStack>
+            {data &&
+              data.map(user => (
+                <Box>
+                  <UserName>{user.username}</UserName>
+                </Box>
+              ))}
+          </VStack>
+          <VStack>
+            {data &&
+              data.map(user => (
+                <Box>
+                  <Score>{user.time}</Score>
+                </Box>
+              ))}
+          </VStack>
+        </HStack>
+      </Center>
     </Box>
   );
 };
