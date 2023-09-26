@@ -16,6 +16,7 @@ const WheresWaldoBackground = ({ handleClick }: Props) => {
       minW={"100%"}
       backgroundSize={"cover"}
       data-testid="waldo-background"
+      loading="lazy"
     />
   );
 };

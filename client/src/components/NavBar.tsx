@@ -1,12 +1,10 @@
 import { Box, HStack, Flex, Heading, Text, Image } from "@chakra-ui/react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import WaldoImage from "./WaldoImage";
-import SonicImage from "./SonicImage";
-import DeathImage from "./DeathImage";
+
 interface Props {
   gameState: {
     start: null | boolean;

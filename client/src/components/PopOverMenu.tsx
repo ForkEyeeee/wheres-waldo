@@ -137,7 +137,7 @@ const PopOverMenu = ({
         },
         body: JSON.stringify({
           character: currentcharacter,
-          pageX: imageCoords.pageX, //pass the coordinates
+          pageX: imageCoords.pageX,
           pageY: imageCoords.pageY,
         }),
       });

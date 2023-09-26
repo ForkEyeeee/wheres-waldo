@@ -5,13 +5,9 @@ import {
   Box,
   Heading,
   Center,
-  Divider,
   Spinner,
-  Flex,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import Score from "./Score";
-import UserName from "./UserName";
+import UserNameScore from "./UserNameScore";
 import useDataFetching from "../hooks/useDataFetching";
 import { useLocation } from "react-router-dom";
 
@@ -68,9 +64,14 @@ const LeaderBoard = () => {
         <VStack alignItems={"stretch"}>
           {data &&
             data.users.map(user => (
-              <HStack spacing={100} justifyContent={"space-between"}>
-                <UserName key={user._id}>{user.username}</UserName>
-                <Score key={user._id}>{user.time}</Score>
+              <HStack
+                key={user._id}
+                spacing={100}
+                justifyContent={"space-between"}
+              >
+                <UserNameScore>
+                  {user.username} {user.time}
+                </UserNameScore>
               </HStack>
             ))}
         </VStack>
