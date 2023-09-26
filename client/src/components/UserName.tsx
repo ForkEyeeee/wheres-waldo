@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
-const UserName = ({ children }) => {
+const UserName = ({ children }: { children: string }) => {
   return (
     <Text fontWeight={"medium"} fontSize={"5xl"}>
       {children}

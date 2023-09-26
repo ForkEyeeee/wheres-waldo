@@ -17,8 +17,6 @@ import DeathImage from "./DeathImage";
 import GameStartModal from "./GameStartModal";
 import GameEndModal from "./GameEndModal";
 import { MouseEvent } from "react";
-import setJWT from "./utils/setJWT";
-import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   currentcharacter: string;
@@ -232,11 +230,11 @@ const PopOverMenu = ({
         {gameState.win && (
           <GameEndModal
             handleClick={handleClick}
-            handleAddScore={handleAddScore}
             onClose={onClose}
             gameState={gameState}
             setGameState={setGameState}
             highScore={highScore}
+            name={name}
           />
         )}
         <WheresWaldoBackground handleClick={handleClick} />

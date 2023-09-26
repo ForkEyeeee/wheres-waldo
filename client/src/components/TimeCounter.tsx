@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Text } from "@chakra-ui/react";
+import { Text, Box, Card } from "@chakra-ui/react";
 
 interface Props {
   gameState: {
@@ -43,9 +43,11 @@ const TimerCounter = ({
   }, [startTime, gameState.win, setTimeElapsed]);
 
   return (
-    <Text>
-      {timeElapsed.minutes} min {timeElapsed.seconds} s
-    </Text>
+    <Box maxWidth={"154px"}>
+      <Text fontSize={"3xl"} color={"red"}>
+        {timeElapsed.minutes} min {timeElapsed.seconds}s
+      </Text>
+    </Box>
   );
 };
 

@@ -6,65 +6,74 @@ import {
   Heading,
   Center,
   Divider,
+  Spinner,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Score from "./Score";
 import UserName from "./UserName";
+import useDataFetching from "../hooks/useDataFetching";
+import { useLocation } from "react-router-dom";
 
 const LeaderBoard = () => {
-  const [data, setData] = useState();
+  const location = import.meta.env.VITE_ENDPOINT + useLocation().pathname;
+  const [data, loading, error] = useDataFetching(location) as [
+    DataProps | null,
+    boolean,
+    string
+  ];
 
-  useEffect(() => {
-    const getLeaderBoard = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_ENDPOINT}/leaderboard`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  if (loading)
+    return (
+      <Center p={10}>
+        <HStack spacing={5}>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+          <Text>Loading...</Text>
+        </HStack>
+      </Center>
+    );
 
-        if (!response.ok) {
-          throw new Error(await response.text());
-        } else {
-          const json = await response.json();
-          setData(json.users);
-          console.log(json);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getLeaderBoard();
-  }, []);
-  console.log(data);
+  if (error) {
+    return (
+      <Box>
+        <Text>Failed to fetch post</Text>
+      </Box>
+    );
+  }
+
+  interface User {
+    _id: string;
+    username: string;
+    time: string;
+    __v: number;
+  }
+
+  interface DataProps {
+    success: boolean;
+    users: User[];
+  }
+
   return (
     <Box>
-      <Center>
+      <Center p={10}>
         <Heading>Leaderboard</Heading>
       </Center>
       <Center>
-        <HStack spacing={100}>
-          <VStack>
-            {data &&
-              data.map(user => (
-                <Box>
-                  <UserName>{user.username}</UserName>
-                </Box>
-              ))}
-          </VStack>
-          <VStack>
-            {data &&
-              data.map(user => (
-                <Box>
-                  <Score>{user.time}</Score>
-                </Box>
-              ))}
-          </VStack>
-        </HStack>
+        <VStack alignItems={"stretch"}>
+          {data &&
+            data.users.map(user => (
+              <HStack spacing={100} justifyContent={"space-between"}>
+                <UserName key={user._id}>{user.username}</UserName>
+                <Score key={user._id}>{user.time}</Score>
+              </HStack>
+            ))}
+        </VStack>
       </Center>
     </Box>
   );

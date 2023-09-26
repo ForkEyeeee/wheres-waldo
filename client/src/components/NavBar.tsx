@@ -1,9 +1,12 @@
-import { Box, HStack, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, HStack, Flex, Heading, Text, Image } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Divider } from "@chakra-ui/react";
 import TimeCounter from "./TimeCounter";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import WaldoImage from "./WaldoImage";
+import SonicImage from "./SonicImage";
+import DeathImage from "./DeathImage";
 interface Props {
   gameState: {
     start: null | boolean;
@@ -29,39 +32,45 @@ const NavBar = ({
   setTimeElapsed,
 }: Props) => {
   const isLocation = useLocation().pathname === "/leaderboard";
-  console.log(location);
+
   return (
     <Box>
-      <>
-        <Box
-          p={2}
-          pt={5}
-          bg="white"
-          fontFamily={"inter"}
-          fontSize={16}
-          textTransform={"capitalize"}
-        >
-          <HStack justifyContent="space-between" alignItems={"center"}>
-            <Heading>Where's Waldo?!</Heading>
-            {gameState.start && !gameState.win && (
-              <TimeCounter
-                gameState={gameState}
-                startTime={startTime}
-                timeElapsed={timeElapsed}
-                setTimeElapsed={setTimeElapsed}
-              />
-            )}
-            {isLocation && (
-              <ChakraLink as={ReactRouterLink} to={`/`}>
-                Back to Game
-              </ChakraLink>
-            )}
-            <Text fontSize={20} fontStyle={"italic"}>
-              Find Waldo and his friends!
-            </Text>
+      <Box
+        p={2}
+        pl={5}
+        pr={5}
+        pt={5}
+        bg="white"
+        fontFamily={"inter"}
+        fontSize={16}
+        textTransform={"capitalize"}
+      >
+        <HStack justifyContent="space-between" alignItems={"center"}>
+          <Heading>Where's Waldo?!</Heading>
+          <HStack boxSize={20}>
+            <Image src="/assets/images/waldo.png" />
+            <Image src="/assets/images/sonic.webp" />
+            <Image src="/assets/images/death.jpg" />
           </HStack>
-        </Box>
-      </>
+          {gameState.start && !gameState.win && (
+            <TimeCounter
+              gameState={gameState}
+              startTime={startTime}
+              timeElapsed={timeElapsed}
+              setTimeElapsed={setTimeElapsed}
+            />
+          )}
+          {isLocation && (
+            <ChakraLink as={ReactRouterLink} to={`/`}>
+              Back to Game
+            </ChakraLink>
+          )}
+
+          <Text fontSize={20} fontStyle={"italic"}>
+            Find Waldo and his friends!
+          </Text>
+        </HStack>
+      </Box>
       <Flex justifyContent={"center"}>
         <Divider pt={5} width={"50%"} />
       </Flex>

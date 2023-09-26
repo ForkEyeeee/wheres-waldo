@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { MouseEvent } from "react";
 
-const setJWT = async (e: MouseEvent) => {
+const setJWT = async (e: React.FormEvent<HTMLFormElement>) => {
   try {
     e.preventDefault();
     const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {

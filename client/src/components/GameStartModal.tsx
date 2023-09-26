@@ -4,11 +4,12 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   Button,
   Input,
   FormControl,
   FormLabel,
+  ModalBody,
+  Center,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import { MouseEvent } from "react";
@@ -46,18 +47,11 @@ const GameStartModal = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
-          <ModalFooter justifyContent={"center"}>
-            <FormControl>
-              <FormLabel>Enter your name</FormLabel>
-              <Input
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                onChange={e => setName(e.target.value)}
-              />
-            </FormControl>
-            <Button
-              onClick={async event => {
+          <ModalBody>
+            {" "}
+            <form
+              onSubmit={async event => {
+                event.preventDefault();
                 setGameState({
                   start: true,
                   win: gameState.win,
@@ -67,9 +61,24 @@ const GameStartModal = ({
                 onClose();
               }}
             >
-              Start
-            </Button>
-          </ModalFooter>
+              <FormControl isRequired={true}>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  onChange={e => setName(e.target.value)}
+                  maxLength={30}
+                  required
+                />
+              </FormControl>
+              <Center p={3}>
+                <Button type="submit" variant={"solid"} colorScheme="green">
+                  Start
+                </Button>
+              </Center>
+            </form>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </Box>
