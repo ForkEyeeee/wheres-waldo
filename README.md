@@ -92,4 +92,8 @@ Visit the application in your browser at `http://localhost:5173`.
 - [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) - In-memory MongoDB server.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Environment variable manager.
 
+## Credits
+
+Image credit: "Where's John Oliver? Durian Street scene" by Stephanie. Explore more of their artwork at [inksalad.net](https://inksalad.net/).
+
 ---
