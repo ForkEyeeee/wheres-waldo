@@ -34,32 +34,42 @@ const NavBar = ({
   return (
     <Box>
       <Box
-        p={2}
-        pl={5}
-        pr={5}
-        pt={5}
+        p={5}
+        // pl={5}
+        // pr={5}
+        // pt={5}
         // bg="white"
         fontFamily={"inter"}
         fontSize={16}
         textTransform={"capitalize"}
       >
-        <HStack justifyContent="space-between" alignItems={"center"}>
-          <Heading>Where's Waldo?!</Heading>
-          {!isLocation && (
-            <HStack boxSize={20}>
-              <Image src="/assets/images/waldo.png" />
-              <Image src="/assets/images/sonic.webp" />
-              <Image src="/assets/images/death.jpg" />
-            </HStack>
-          )}
-          {gameState.start && !gameState.win && (
-            <TimeCounter
-              gameState={gameState}
-              startTime={startTime}
-              timeElapsed={timeElapsed}
-              setTimeElapsed={setTimeElapsed}
-            />
-          )}
+        <HStack
+          justifyContent="space-between"
+          // alignItems={{ base: "flex-start", md: "center" }}
+          // flexDir={{ base: "column", md: "row" }}
+          textAlign={"center"}
+        >
+          <Heading fontSize={{ base: "inherit", md: 16 }}>
+            Where's Waldo?!
+          </Heading>
+          {
+            !isLocation && (
+              <Box>
+                {gameState.start && !gameState.win && (
+                  <TimeCounter
+                    gameState={gameState}
+                    startTime={startTime}
+                    timeElapsed={timeElapsed}
+                    setTimeElapsed={setTimeElapsed}
+                  />
+                )}
+              </Box>
+            )
+            // <HStack boxSize={{ base: 10, md: 20 }} justifyContent="center">
+
+            // </HStack>
+          }
+
           {isLocation && (
             <ChakraLink
               as={ReactRouterLink}
@@ -72,13 +82,27 @@ const NavBar = ({
             </ChakraLink>
           )}
 
-          <Text fontSize={20} fontStyle={"italic"}>
+          <Text fontSize={{ base: "inherit", md: 20 }} fontStyle={"italic"}>
             Find Waldo and his friends!
           </Text>
         </HStack>
       </Box>
-      <Flex justifyContent={"center"}>
-        <Divider pt={5} width={"50%"} />
+      <Flex justifyContent="center" alignItems="center">
+        <Image
+          src="/assets/images/waldo.png"
+          boxSize={{ base: "50px", xl: "100px" }}
+          height={"auto"}
+        />
+        <Image
+          src="/assets/images/sonic.webp"
+          boxSize={{ base: "50px", xl: "100px" }}
+          height={"auto !important"}
+        />
+        <Image
+          src="/assets/images/death.jpg"
+          boxSize={{ base: "50px", xl: "100px" }}
+          height={"auto"}
+        />
       </Flex>
     </Box>
   );

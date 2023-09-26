@@ -56,7 +56,7 @@ const LeaderBoard = () => {
   }
 
   return (
-    <Box>
+    <Box bg={"white"}>
       <Center p={10}>
         <Heading textDecoration={"underline"}>Leaderboard</Heading>
       </Center>

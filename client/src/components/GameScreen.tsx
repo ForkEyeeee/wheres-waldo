@@ -108,10 +108,21 @@ const GameScreen = ({
 
   const toast = useToast();
 
+  const getAdjustments = (): { xAdjustment: number; yAdjustment: number } => {
+    const width = window.innerWidth;
+
+    if (width <= 320) return { xAdjustment: -35, yAdjustment: 130 }; // base
+    if (width <= 480) return { xAdjustment: -35, yAdjustment: 130 }; // sm
+    if (width <= 768) return { xAdjustment: -35, yAdjustment: 130 }; // md
+    if (width <= 992) return { xAdjustment: -35, yAdjustment: 130 }; // lg
+    return { xAdjustment: -40, yAdjustment: 212 }; // xl
+  };
+
   const handleClick = (event: MouseEvent): void => {
     const { clientX, clientY } = event;
 
     const rect = event.currentTarget.getBoundingClientRect();
+    const { xAdjustment, yAdjustment } = getAdjustments();
 
     const xRelativeToElement = clientX - rect.left;
     const yRelativeToElement = clientY - rect.top;
@@ -121,8 +132,8 @@ const GameScreen = ({
 
     setImageCoords({ pageX: xPercentage, pageY: yPercentage });
     setPopUpCoords({
-      pageX: xRelativeToElement - 40,
-      pageY: yRelativeToElement + 55,
+      pageX: xRelativeToElement + xAdjustment,
+      pageY: yRelativeToElement + yAdjustment,
     });
     setIsPopUp(!isPopUp);
   };
@@ -275,8 +286,8 @@ const GameScreen = ({
           </PopoverTrigger>
           <PopoverContent
             display={isPopUp ? "inherit" : "none"}
-            maxW={"150px"}
             borderColor={"gray"}
+            maxW={{ base: 20, sm: 100, lg: 150 }}
           >
             <PopoverArrow ml={3} />
             <PopoverBody>
