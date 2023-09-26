@@ -23,34 +23,40 @@ Ensure [Node.js](https://nodejs.org/en/download/) and [npm](http://npmjs.com) ar
    npm install
    ```
 
-3. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains the following:
+3. Generate a hashed signature using bcrypt.
+
+4. Set up your environment variables by creating a `.env` file in the `server` directory. Ensure it contains the following:
 
    ```
    dev_db_url="your_connection_string"
-   JWT_SECRET="your_jwt_secret"
+   signature="your_hashed_signature"
    ```
 
-4. Launch the server:
+5. Launch the server:
 
    ```bash
    npm run serverstart
    ```
 
-5. In a separate terminal, navigate to the `client` directory:
+6. In a separate terminal, navigate to the `client` directory:
 
    ```bash
    cd path/to/wheres-waldo/client
    ```
 
-6. Install dependencies for the client:
+7. Install dependencies for the client:
 
    ```bash
    npm install
    ```
 
-7. Create a `.env` file within the `client` directory and add an environment variable in the format `VITE_ENDPOINT=http://localhost:5173/`.
+8. Create a `.env` file within the `client` directory. Ensure it contains the following:
 
-8. Launch the client development server:
+   ```
+   VITE_ENDPOINT=http://localhost:5173/
+   ```
+
+9. Launch the client development server:
 
    ```bash
    npm run dev
