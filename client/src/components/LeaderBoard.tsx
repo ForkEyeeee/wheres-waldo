@@ -58,7 +58,7 @@ const LeaderBoard = () => {
   return (
     <Box>
       <Center p={10}>
-        <Heading>Leaderboard</Heading>
+        <Heading textDecoration={"underline"}>Leaderboard</Heading>
       </Center>
       <Center>
         <VStack alignItems={"stretch"}>

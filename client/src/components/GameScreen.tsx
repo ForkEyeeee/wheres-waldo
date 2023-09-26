@@ -38,7 +38,7 @@ interface Props {
   setStartTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PopOverMenu = ({
+const GameScreen = ({
   currentcharacter,
   setCurrentCharacter,
   chosenCharacters,
@@ -308,4 +308,4 @@ const PopOverMenu = ({
   );
 };
 
-export default PopOverMenu;
+export default GameScreen;

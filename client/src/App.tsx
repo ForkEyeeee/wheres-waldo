@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import PopOverMenu from "./components/PopOverMenu";
+import { Box } from "@chakra-ui/react";
+import GameScreen from "./components/GameScreen";
 import LeaderBoard from "./components/LeaderBoard";
 import NavBar from "./components/NavBar";
 import "./styles.css";
@@ -26,7 +27,7 @@ const App = () => {
   });
 
   return (
-    <>
+    <Box backgroundColor={"gray.100"}>
       <NavBar
         gameState={gameState}
         startTime={startTime}
@@ -37,7 +38,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <PopOverMenu
+            <GameScreen
               currentcharacter={currentcharacter}
               setCurrentCharacter={setCurrentCharacter}
               chosenCharacters={chosenCharacters}
@@ -52,7 +53,7 @@ const App = () => {
         />
         <Route path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
-    </>
+    </Box>
   );
 };
 

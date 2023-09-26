@@ -38,18 +38,20 @@ const NavBar = ({
         pl={5}
         pr={5}
         pt={5}
-        bg="white"
+        // bg="white"
         fontFamily={"inter"}
         fontSize={16}
         textTransform={"capitalize"}
       >
         <HStack justifyContent="space-between" alignItems={"center"}>
           <Heading>Where's Waldo?!</Heading>
-          <HStack boxSize={20}>
-            <Image src="/assets/images/waldo.png" />
-            <Image src="/assets/images/sonic.webp" />
-            <Image src="/assets/images/death.jpg" />
-          </HStack>
+          {!isLocation && (
+            <HStack boxSize={20}>
+              <Image src="/assets/images/waldo.png" />
+              <Image src="/assets/images/sonic.webp" />
+              <Image src="/assets/images/death.jpg" />
+            </HStack>
+          )}
           {gameState.start && !gameState.win && (
             <TimeCounter
               gameState={gameState}
@@ -59,7 +61,13 @@ const NavBar = ({
             />
           )}
           {isLocation && (
-            <ChakraLink as={ReactRouterLink} to={`/`}>
+            <ChakraLink
+              as={ReactRouterLink}
+              to={`/`}
+              fontSize={20}
+              fontWeight={"semibold"}
+              color={"blue"}
+            >
               Back to Game
             </ChakraLink>
           )}

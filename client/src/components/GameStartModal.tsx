@@ -10,11 +10,21 @@ import {
   FormLabel,
   ModalBody,
   Center,
+  HStack,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  Text,
+  PopoverArrow,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import { MouseEvent } from "react";
 import setJWT from "./utils/setJWT";
-
+import { InfoIcon } from "@chakra-ui/icons";
+import { AiFillQuestionCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 interface Props {
   handleClick: (event: MouseEvent) => void;
   onClose: () => void;
@@ -40,15 +50,39 @@ const GameStartModal = ({
   setName,
   setStartTime,
 }: Props) => {
+  const navigate = useNavigate();
   return (
     <Box data-testid="game-start-modal">
       <WheresWaldoBackground handleClick={handleClick} />
       <Modal onClose={onClose} isOpen={!gameState.win} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Are you ready to play Where's Waldo?</ModalHeader>
+          <Popover placement="right">
+            <Box>
+              <ModalHeader flexGrow={"1"}>
+                Are you ready to play Where's Waldo?
+                <span className="info-button">
+                  <PopoverTrigger>
+                    <InfoIcon color={"blue.400"} />
+                  </PopoverTrigger>
+                </span>
+              </ModalHeader>{" "}
+            </Box>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverHeader textAlign="center" fontWeight={"bold"}>
+                Quick Guide
+              </PopoverHeader>
+              <PopoverBody textAlign={"center"}>
+                Find the 3 characters that are hidden in the background image.
+                Feedback will be given on correct or incorrect choices. Try to
+                get a high score. <br /> Press <em>"View Leaderboard"</em> to
+                see the scoreboard.
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+
           <ModalBody>
-            {" "}
             <form
               onSubmit={async event => {
                 event.preventDefault();
@@ -73,9 +107,18 @@ const GameStartModal = ({
                 />
               </FormControl>
               <Center p={3}>
-                <Button type="submit" variant={"solid"} colorScheme="green">
-                  Start
-                </Button>
+                <HStack spacing={8}>
+                  <Button
+                    variant={"ghost"}
+                    colorScheme="linkedin"
+                    onClick={() => navigate("/leaderboard")}
+                  >
+                    View Leaderboard
+                  </Button>
+                  <Button type="submit" variant={"solid"} colorScheme="green">
+                    Start
+                  </Button>
+                </HStack>
               </Center>
             </form>
           </ModalBody>

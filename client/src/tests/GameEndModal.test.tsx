@@ -10,11 +10,11 @@ describe("GameEndModal", () => {
       <BrowserRouter>
         <GameEndModal
           handleClick={handleClick}
-          handleAddScore={handleClick}
           onClose={handleClick}
           gameState={handleClick}
           highScore={handleClick}
           setGameState={handleClick}
+          name={"test"}
         />
       </BrowserRouter>
     );
