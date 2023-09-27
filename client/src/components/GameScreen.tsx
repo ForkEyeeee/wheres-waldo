@@ -110,9 +110,9 @@ const GameScreen = ({
 
   const getAdjustments = (): { xAdjustment: number; yAdjustment: number } => {
     const width = window.innerWidth;
-    if (width <= 480) return { xAdjustment: -41, yAdjustment: 110 }; // sm
-    if (width <= 992) return { xAdjustment: -41, yAdjustment: 200 }; // lg
-    return { xAdjustment: -41, yAdjustment: 200 }; // xl
+    if (width <= 480) return { xAdjustment: -41, yAdjustment: 130 }; // sm
+    if (width <= 992) return { xAdjustment: -41, yAdjustment: 225 }; // lg
+    return { xAdjustment: -41, yAdjustment: 225 }; // xl
   };
 
   const handleClick = (event: MouseEvent): void => {
