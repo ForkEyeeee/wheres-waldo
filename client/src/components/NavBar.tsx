@@ -64,7 +64,7 @@ const NavBar = ({
         </HStack>
       </Box>
       {!isLocation && (
-        <Flex justifyContent="center" alignItems="center">
+        <Flex justifyContent="center" alignItems="center" pb={"10px"}>
           <Image
             src="/assets/images/waldo.png"
             boxSize={{ base: "50px", md: "100px" }}
