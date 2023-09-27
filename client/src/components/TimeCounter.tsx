@@ -26,7 +26,7 @@ const TimerCounter = ({
   setTimeElapsed,
 }: Props) => {
   const formatTimeUnit = (unit: number | null) => {
-    if (unit !== null) return unit < 10 ? `0${unit}` : unit;
+    return (unit as any) < 10 ? `0${unit}` : unit;
   };
 
   useEffect(() => {
