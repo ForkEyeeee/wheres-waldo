@@ -41,13 +41,12 @@ const NavBar = ({
         // bg="white"
         fontFamily={"inter"}
         fontSize={16}
-        textTransform={"capitalize"}
       >
         <HStack
           justifyContent="space-between"
           // alignItems={{ base: "flex-start", md: "center" }}
           // flexDir={{ base: "column", md: "row" }}
-          textAlign={"center"}
+          // textAlign={"center"}
         >
           <Heading fontSize={{ base: "inherit", md: 16 }}>
             Where's Waldo?!
@@ -82,25 +81,25 @@ const NavBar = ({
             </ChakraLink>
           )}
 
-          <Text fontSize={{ base: "inherit", md: 20 }} fontStyle={"italic"}>
+          {/* <Text fontSize={{ base: "inherit", md: 20 }} fontStyle={"italic"}>
             Find Waldo and his friends!
-          </Text>
+          </Text> */}
         </HStack>
       </Box>
       <Flex justifyContent="center" alignItems="center">
         <Image
           src="/assets/images/waldo.png"
-          boxSize={{ base: "50px", xl: "100px" }}
+          boxSize={{ base: "50px", md: "100px" }}
           height={"auto"}
         />
         <Image
           src="/assets/images/sonic.webp"
-          boxSize={{ base: "50px", xl: "100px" }}
+          boxSize={{ base: "50px", md: "100px" }}
           height={"auto !important"}
         />
         <Image
           src="/assets/images/death.jpg"
-          boxSize={{ base: "50px", xl: "100px" }}
+          boxSize={{ base: "50px", md: "100px" }}
           height={"auto"}
         />
       </Flex>

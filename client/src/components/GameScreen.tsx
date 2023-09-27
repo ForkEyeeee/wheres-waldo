@@ -111,11 +111,11 @@ const GameScreen = ({
   const getAdjustments = (): { xAdjustment: number; yAdjustment: number } => {
     const width = window.innerWidth;
 
-    if (width <= 320) return { xAdjustment: -35, yAdjustment: 130 }; // base
-    if (width <= 480) return { xAdjustment: -35, yAdjustment: 130 }; // sm
-    if (width <= 768) return { xAdjustment: -35, yAdjustment: 130 }; // md
-    if (width <= 992) return { xAdjustment: -35, yAdjustment: 130 }; // lg
-    return { xAdjustment: -40, yAdjustment: 212 }; // xl
+    // if (width <= 320) return { xAdjustment: -41, yAdjustment: 110 }; // base
+    if (width <= 480) return { xAdjustment: -41, yAdjustment: 110 }; // sm
+    // if (width <= 768) return { xAdjustment: -41, yAdjustment: 200 }; // md
+    if (width <= 992) return { xAdjustment: -41, yAdjustment: 200 }; // lg
+    return { xAdjustment: -41, yAdjustment: 200 }; // xl
   };
 
   const handleClick = (event: MouseEvent): void => {

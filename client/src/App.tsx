@@ -5,6 +5,7 @@ import GameScreen from "./components/GameScreen";
 import LeaderBoard from "./components/LeaderBoard";
 import NavBar from "./components/NavBar";
 import "./styles.css";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [currentcharacter, setCurrentCharacter] = useState<string>("");
@@ -53,6 +54,7 @@ const App = () => {
         />
         <Route path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
+      <Footer />
     </Box>
   );
 };
