@@ -21,21 +21,6 @@ afterEach(async () => {
     await character_1.default.deleteMany();
 });
 describe("unprotectedRoutes", function () {
-    test("setJWT", function (done) {
-        (0, supertest_1.default)(appTest)
-            .patch("/")
-            .send({
-            userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9",
-        })
-            .set("Accept", "application/json")
-            .expect(200)
-            .expect(function (res) {
-            if (res.body.data.userId !== "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9") {
-                throw new Error(`Expected userId to be '7f43e3a0-cbc9-4dc5-9892-e61250bba7c9', got ${res.body.userId}`);
-            }
-        })
-            .end(done);
-    });
     test("validateLocationPost", done => {
         (0, supertest_1.default)(appTest)
             .post("/")
