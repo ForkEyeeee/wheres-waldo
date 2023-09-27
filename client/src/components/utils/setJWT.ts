@@ -4,7 +4,7 @@ const setJWT = async (e: React.FormEvent<HTMLFormElement>) => {
   try {
     e.preventDefault();
     const response = await fetch(`${import.meta.env.VITE_ENDPOINT}`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },

@@ -22,7 +22,25 @@ afterEach(async () => {
 });
 
 describe("unprotectedRoutes", function () {
-  test("validateLocationSetJWT - Location Validation", done => {
+  test("setJWT", function (done) {
+    request(appTest)
+      .patch("/")
+      .send({
+        userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9",
+      })
+      .set("Accept", "application/json")
+      .expect(200)
+      .expect(function (res) {
+        if (res.body.data.userId !== "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9") {
+          throw new Error(
+            `Expected userId to be '7f43e3a0-cbc9-4dc5-9892-e61250bba7c9', got ${res.body.userId}`
+          );
+        }
+      })
+      .end(done);
+  });
+
+  test("validateLocationPost", done => {
     request(appTest)
       .post("/")
       .send({ character: "Waldo", pageX: 46, pageY: 91 })
@@ -37,33 +55,14 @@ describe("unprotectedRoutes", function () {
       .end(done);
   });
 
-  test("validateLocationSetJWT - JWT Generation", done => {
-    request(appTest)
-      .post("/")
-      .send({ userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9" })
-      .expect(200)
-      .expect("Content-Type", /json/)
-      .expect(res => {
-        if (!res.body.success || !res.body.data || !res.body.data.token) {
-          throw new Error(
-            "Expected response body to contain a successful status and a token"
-          );
-        }
-      })
-      .end(done);
-  });
-
   test("updateTimePut", done => {
     request(appTest)
       .patch("/")
       .send({ userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9" })
-      .expect(200)
-      .expect(res => {
-        if (!res.body.data || !res.body.data.token) {
-          throw new Error("Expected response body to contain data and a token");
-        }
-        const token = res.body.data.token;
+      .end((err, res) => {
+        if (err) return done(err);
 
+        const token = res.body.data.token;
         request(appTest)
           .put("/")
           .send({ name: "Mark" })

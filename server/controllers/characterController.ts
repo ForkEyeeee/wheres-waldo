@@ -6,62 +6,30 @@ import User from "../models/user";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
 
-export const validateLocationSetJWT = asyncHandler(
+export const validateLocationPost = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const serverStartTime = Math.floor(Date.now() / 1000);
-
-    if (req.body.userId) {
-      try {
-        const token = jwt.sign(
-          { userId: req.body.userId, startTime: serverStartTime },
-          process.env.signature as any,
-          {
-            expiresIn: "365d",
+    try {
+      const { character, pageX, pageY } = req.body;
+      let characters = await Character.find({});
+      const validateLocation = () => {
+        for (let i = 0; i < characters.length; i += 1) {
+          if (
+            pageX >= characters[i].locationXMin &&
+            pageX <= characters[i].locationXMax &&
+            pageY >= characters[i].locationYMin &&
+            pageY <= characters[i].locationYMax &&
+            character === characters[i].name
+          ) {
+            return true;
           }
-        );
-        res.status(200).json({
-          success: true,
-          data: {
-            userId: req.body.userId,
-            token: token,
-            startTime: serverStartTime,
-          },
-        });
-      } catch (err) {
-        const error = new Error(
-          "Error! Something went wrong when signing token."
-        );
-        return next(error);
-      }
-    } else {
-      try {
-        const { character, pageX, pageY } = req.body;
-        let characters = await Character.find({});
-        const validateLocation = () => {
-          for (let i = 0; i < characters.length; i += 1) {
-            if (
-              pageX >= characters[i].locationXMin &&
-              pageX <= characters[i].locationXMax &&
-              pageY >= characters[i].locationYMin &&
-              pageY <= characters[i].locationYMax &&
-              character === characters[i].name
-            ) {
-              return true;
-            }
-          }
-          return false;
-        };
-        res.json({
-          success: validateLocation(),
-        });
-      } catch (error) {
-        res
-          .status(500)
-          .json({
-            Message: "Error! Something went wrong when validating location.",
-            success: false,
-          });
-      }
+        }
+        return false;
+      };
+      res.json({
+        success: validateLocation(),
+      });
+    } catch (error) {
+      res.status(500).json({ Message: error, success: false });
     }
   }
 );
@@ -133,6 +101,32 @@ export const updateTimePut = asyncHandler(
     } catch (error) {
       console.log(error);
       res.status(500).json({ Message: error, success: false });
+    }
+  }
+);
+
+export const setJWT = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const serverStartTime = Math.floor(Date.now() / 1000);
+    try {
+      const token = jwt.sign(
+        { userId: req.body.userId, startTime: serverStartTime },
+        process.env.signature as any,
+        {
+          expiresIn: "365d",
+        }
+      );
+      res.status(200).json({
+        success: true,
+        data: {
+          userId: req.body.userId,
+          token: token,
+          startTime: serverStartTime,
+        },
+      });
+    } catch (err) {
+      const error = new Error("Error! Something went wrong.");
+      return next(error);
     }
   }
 );
