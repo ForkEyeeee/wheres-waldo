@@ -3,35 +3,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLeaderBoard = exports.setJWT = exports.updateTimePut = exports.validateLocationPost = void 0;
+exports.getLeaderBoard = exports.updateTimePut = exports.validateLocationSetJWT = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const character_1 = __importDefault(require("../models/character"));
 const user_1 = __importDefault(require("../models/user"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-exports.validateLocationPost = (0, express_async_handler_1.default)(async (req, res, next) => {
-    try {
-        const { character, pageX, pageY } = req.body;
-        let characters = await character_1.default.find({});
-        const validateLocation = () => {
-            for (let i = 0; i < characters.length; i += 1) {
-                if (pageX >= characters[i].locationXMin &&
-                    pageX <= characters[i].locationXMax &&
-                    pageY >= characters[i].locationYMin &&
-                    pageY <= characters[i].locationYMax &&
-                    character === characters[i].name) {
-                    return true;
-                }
-            }
-            return false;
-        };
-        res.json({
-            success: validateLocation(),
-        });
+exports.validateLocationSetJWT = (0, express_async_handler_1.default)(async (req, res, next) => {
+    const serverStartTime = Math.floor(Date.now() / 1000);
+    if (req.body.userId) {
+        try {
+            const token = jsonwebtoken_1.default.sign({ userId: req.body.userId, startTime: serverStartTime }, process.env.signature, {
+                expiresIn: "365d",
+            });
+            res.status(200).json({
+                success: true,
+                data: {
+                    userId: req.body.userId,
+                    token: token,
+                    startTime: serverStartTime,
+                },
+            });
+        }
+        catch (err) {
+            const error = new Error("Error! Something went wrong when signing token.");
+            return next(error);
+        }
     }
-    catch (error) {
-        res.status(500).json({ Message: error, success: false });
+    else {
+        try {
+            const { character, pageX, pageY } = req.body;
+            let characters = await character_1.default.find({});
+            const validateLocation = () => {
+                for (let i = 0; i < characters.length; i += 1) {
+                    if (pageX >= characters[i].locationXMin &&
+                        pageX <= characters[i].locationXMax &&
+                        pageY >= characters[i].locationYMin &&
+                        pageY <= characters[i].locationYMax &&
+                        character === characters[i].name) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            res.json({
+                success: validateLocation(),
+            });
+        }
+        catch (error) {
+            res.status(500).json({
+                Message: "Error! Something went wrong when validating location.",
+                success: false,
+            });
+        }
     }
 });
 exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, next) => {
@@ -85,26 +110,6 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
     catch (error) {
         console.log(error);
         res.status(500).json({ Message: error, success: false });
-    }
-});
-exports.setJWT = (0, express_async_handler_1.default)(async (req, res, next) => {
-    const serverStartTime = Math.floor(Date.now() / 1000);
-    try {
-        const token = jsonwebtoken_1.default.sign({ userId: req.body.userId, startTime: serverStartTime }, process.env.signature, {
-            expiresIn: "365d",
-        });
-        res.status(200).json({
-            success: true,
-            data: {
-                userId: req.body.userId,
-                token: token,
-                startTime: serverStartTime,
-            },
-        });
-    }
-    catch (err) {
-        const error = new Error("Error! Something went wrong.");
-        return next(error);
     }
 });
 exports.getLeaderBoard = (0, express_async_handler_1.default)(async (req, res, next) => {

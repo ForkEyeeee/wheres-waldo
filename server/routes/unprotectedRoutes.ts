@@ -2,14 +2,12 @@ import { Router } from "express";
 const MyRouter = Router();
 
 import {
-  validateLocationPost,
+  validateLocationSetJWT,
   updateTimePut,
-  setJWT,
   getLeaderBoard,
 } from "../controllers/characterController";
 
-MyRouter.post("/", validateLocationPost);
+MyRouter.post("/", validateLocationSetJWT);
 MyRouter.put("/", updateTimePut);
-MyRouter.patch("/", setJWT);
 MyRouter.get("/leaderboard", getLeaderBoard);
 export default MyRouter;
