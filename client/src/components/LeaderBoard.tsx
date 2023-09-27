@@ -11,6 +11,18 @@ import UserNameScore from "./UserNameScore";
 import useDataFetching from "../hooks/useDataFetching";
 import { useLocation } from "react-router-dom";
 
+interface User {
+  _id: string;
+  username: string;
+  time: string;
+  __v: number;
+}
+
+interface DataProps {
+  success: boolean;
+  users: User[];
+}
+
 const LeaderBoard = () => {
   const location = import.meta.env.VITE_ENDPOINT + useLocation().pathname;
   const [data, loading, error] = useDataFetching(location) as [
@@ -38,25 +50,13 @@ const LeaderBoard = () => {
   if (error) {
     return (
       <Box>
-        <Text>Failed to fetch post</Text>
+        <Text>Failed to fetch data</Text>
       </Box>
     );
   }
 
-  interface User {
-    _id: string;
-    username: string;
-    time: string;
-    __v: number;
-  }
-
-  interface DataProps {
-    success: boolean;
-    users: User[];
-  }
-
   return (
-    <Box bg={"white"}>
+    <Box bg={"white"} pb={10}>
       <Center p={10}>
         <Heading textDecoration={"underline"}>Leaderboard</Heading>
       </Center>
@@ -70,7 +70,8 @@ const LeaderBoard = () => {
                 justifyContent={"space-between"}
               >
                 <UserNameScore>
-                  {user.username} {user.time}
+                  {user.username}
+                  {user.time}
                 </UserNameScore>
               </HStack>
             ))}

@@ -12,13 +12,12 @@ const Footer = () => {
       py={4}
       color="white"
     >
-      <HStack align="center" fontSize="lg" fontWeight="semibold">
+      <HStack align="center" fontSize="lg" fontWeight="semibold" spacing={4}>
         <Link
           href="https://github.com/ForkEyeee"
           isExternal
           display="flex"
           alignItems="center"
-          spacing="4px"
           _hover={{ textDecoration: "underline" }}
         >
           <Text>ForkEyeee</Text>

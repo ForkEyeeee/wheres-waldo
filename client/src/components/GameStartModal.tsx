@@ -16,15 +16,14 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  Text,
   PopoverArrow,
 } from "@chakra-ui/react";
 import WheresWaldoBackground from "./WheresWaldoBackground";
 import { MouseEvent } from "react";
 import setJWT from "./utils/setJWT";
 import { InfoIcon } from "@chakra-ui/icons";
-import { AiFillQuestionCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+
 interface Props {
   handleClick: (event: MouseEvent) => void;
   onClose: () => void;
@@ -51,16 +50,21 @@ const GameStartModal = ({
   setStartTime,
 }: Props) => {
   const navigate = useNavigate();
+
   return (
     <Box data-testid="game-start-modal">
       <WheresWaldoBackground handleClick={handleClick} />
       <Modal onClose={onClose} isOpen={!gameState.win} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <Popover placement="right">
+          <Popover placement={"top"}>
             <Box>
-              <ModalHeader flexGrow={"1"}>
-                Are you ready to play Where's Waldo?
+              <ModalHeader
+                flexGrow={"1"}
+                fontSize={{ base: 15, md: "inherit" }}
+                textAlign={"center"}
+              >
+                Hey there, are you ready to play?
                 <span className="info-button">
                   <PopoverTrigger>
                     <InfoIcon color={"blue.400"} />

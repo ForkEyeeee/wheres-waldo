@@ -25,6 +25,10 @@ const TimerCounter = ({
   timeElapsed,
   setTimeElapsed,
 }: Props) => {
+  const formatTimeUnit = (unit: number | null) => {
+    if (unit !== null) return unit < 10 ? `0${unit}` : unit;
+  };
+
   useEffect(() => {
     if (gameState.win) return;
 
@@ -45,7 +49,8 @@ const TimerCounter = ({
   return (
     <Box>
       <Text fontSize={{ base: "inherit", md: "2xl" }} color={"red"}>
-        {timeElapsed.minutes} min {timeElapsed.seconds}s
+        {formatTimeUnit(timeElapsed.minutes)} min{" "}
+        {formatTimeUnit(timeElapsed.seconds)}s
       </Text>
     </Box>
   );
