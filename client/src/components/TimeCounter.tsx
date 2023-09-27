@@ -47,8 +47,17 @@ const TimerCounter = ({
   }, [startTime, gameState.win, setTimeElapsed]);
 
   return (
-    <Box>
-      <Text fontSize={{ base: "inherit", md: "2xl" }} color={"red"}>
+    <Box
+      p={2}
+      bgColor="white"
+      borderRadius="8px"
+      boxShadow="0px 4px 6px rgba(0, 0, 0, 0.1)"
+    >
+      <Text
+        fontSize={{ base: "inherit", md: "2xl" }}
+        color="red"
+        fontWeight="semibold"
+      >
         {formatTimeUnit(timeElapsed.minutes)} min{" "}
         {formatTimeUnit(timeElapsed.seconds)}s
       </Text>
