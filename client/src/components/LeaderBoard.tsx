@@ -34,16 +34,19 @@ const LeaderBoard = () => {
   if (loading)
     return (
       <Center p={10}>
-        <HStack spacing={5}>
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-          <Text>Loading...</Text>
-        </HStack>
+        <VStack>
+          <Heading textDecoration={"underline"}>Leaderboard</Heading>
+          <HStack spacing={5}>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+            <Text>Loading...</Text>
+          </HStack>
+        </VStack>
       </Center>
     );
 

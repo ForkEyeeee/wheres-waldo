@@ -48,7 +48,6 @@ export const updateTimePut = asyncHandler(
     const decoded: any = jwt.verify(token[1], process.env.signature as any);
     const serverEndTime = Math.floor(Date.now() / 1000);
     const elapsedTime = serverEndTime - decoded.iat;
-
     try {
       const topTenUsers = await User.find()
         .sort({ time: -1 })
@@ -131,6 +130,7 @@ export const setJWT = asyncHandler(
     }
   }
 );
+
 export const getLeaderBoard = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
