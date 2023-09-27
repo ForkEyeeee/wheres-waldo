@@ -67,7 +67,7 @@ const GameStartModal = ({
                 Hey there, are you ready to play?
                 <span className="info-button">
                   <PopoverTrigger>
-                    <InfoIcon color={"blue.400"} ml={"10px"} />
+                    <InfoIcon color={"blue.400"} />
                   </PopoverTrigger>
                 </span>
               </ModalHeader>{" "}

@@ -77,7 +77,7 @@ body {
   border-radius: 50%;
 }
 
-.info-button {
+.info-button > svg {
   margin-left: 30px;
   cursor: pointer;
 }

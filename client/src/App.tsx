@@ -5,6 +5,7 @@ import GameScreen from "./components/GameScreen";
 import LeaderBoard from "./components/LeaderBoard";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import "./styles.css";
 
 const App = () => {
   const [currentcharacter, setCurrentCharacter] = useState<string>("");
