@@ -138,7 +138,7 @@ export const updateTimePut = asyncHandler(
 export const getLeaderBoard = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const users = await User.find({});
+      const users = await User.find({}).sort({ time: 1 });
       res.status(200).json({
         success: true,
         users: users,

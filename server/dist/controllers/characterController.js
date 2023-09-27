@@ -114,7 +114,7 @@ exports.updateTimePut = (0, express_async_handler_1.default)(async (req, res, ne
 });
 exports.getLeaderBoard = (0, express_async_handler_1.default)(async (req, res, next) => {
     try {
-        const users = await user_1.default.find({});
+        const users = await user_1.default.find({}).sort({ time: 1 });
         res.status(200).json({
             success: true,
             users: users,
