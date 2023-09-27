@@ -22,7 +22,11 @@ app.use(helmet_1.default.contentSecurityPolicy({
         "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
     },
 }));
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "https://wheres-waldo-frontend.onrender.com",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+}));
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
