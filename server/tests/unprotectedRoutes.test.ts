@@ -24,17 +24,32 @@ afterEach(async () => {
 describe("unprotectedRoutes", function () {
   test("setJWT", function (done) {
     request(appTest)
-      .patch("/")
+      .post("/")
       .send({
         userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9",
       })
       .set("Accept", "application/json")
       .expect(200)
-      .expect(function (res) {
+      .expect("Content-Type", /json/)
+      .expect((res: any) => {
+        if (!res.body.success) {
+          throw new Error(
+            `Expected success to be true, got ${res.body.success}`
+          );
+        }
+
         if (res.body.data.userId !== "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9") {
           throw new Error(
-            `Expected userId to be '7f43e3a0-cbc9-4dc5-9892-e61250bba7c9', got ${res.body.userId}`
+            `Expected userId to be '7f43e3a0-cbc9-4dc5-9892-e61250bba7c9', got ${res.body.data.userId}`
           );
+        }
+
+        if (!res.body.data.token) {
+          throw new Error("Expected token to exist");
+        }
+
+        if (!res.body.data.startTime) {
+          throw new Error("Expected startTime to exist");
         }
       })
       .end(done);
@@ -46,18 +61,16 @@ describe("unprotectedRoutes", function () {
       .send({ character: "Waldo", pageX: 46, pageY: 91 })
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect({ success: true })
       .expect((res: any) => {
-        if (res.body === undefined) {
-          throw new Error("Expected response body to be true or false");
+        if (res.body.success === undefined) {
+          throw new Error("Expected success to be true or false");
         }
       })
       .end(done);
   });
-
   test("updateTimePut", done => {
     request(appTest)
-      .patch("/")
+      .post("/")
       .send({ userId: "7f43e3a0-cbc9-4dc5-9892-e61250bba7c9" })
       .end((err, res) => {
         if (err) return done(err);
