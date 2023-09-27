@@ -1,4 +1,4 @@
-import { Box, HStack, Flex, Heading, Text, Image } from "@chakra-ui/react";
+import { Box, HStack, Flex, Heading, Image } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import TimeCounter from "./TimeCounter";
 import { Link as ReactRouterLink } from "react-router-dom";
