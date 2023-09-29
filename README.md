@@ -53,7 +53,7 @@ Ensure [Node.js](https://nodejs.org/en/download/) and [npm](http://npmjs.com) ar
 8. Create a `.env` file within the `client` directory. Ensure it contains the following:
 
    ```
-   VITE_ENDPOINT=http://localhost:5173/
+   VITE_ENDPOINT=http://localhost:5173/api
    ```
 
 9. Launch the client development server:
